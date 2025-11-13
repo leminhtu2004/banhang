@@ -1,0 +1,365 @@
+﻿@model WebBanHang1.Models.HangHoa
+@{
+    ViewBag.Title = Model.TenHh;
+    var maKH = Context.Session.GetString("MaKH");
+}
+
+<div class="container my-4">
+    <div class="row">
+        <!-- Hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <div class="card">
+                <img src="~/images/@Model.Hinh"
+                     class="card-img-top img-fluid"
+                     alt="@Model.TenHh"
+                     style="object-fit: contain; height: 400px;" />
+            </div>
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-md-6">
+            <h2 class="mb-3">@Model.TenHh</h2>
+            <div class="mb-4">
+                <h4 class="text-danger">@Model.DonGia.ToString("N0") đ</h4>
+            </div>
+
+            <div class="mb-4">
+                <h5>Mô tả sản phẩm</h5>
+                <p class="text-muted">@Model.MoTa</p>
+            </div>
+
+            <div class="mb-4">
+                <h5>Số lượng tồn: @Model.SoLuong</h5>
+            </div>
+
+            @if (Model.SoLuong > 0)
+            {
+                <form action="@Url.Action("AddToCart", "Cart")" method="post">
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="input-group" style="width: 150px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" name="quantity" id="quantity" class="form-control text-center" value="1" min="1" max="@Model.SoLuong">
+                                <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" name="productId" value="@Model.MaHh" />
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-danger">Sản phẩm đã hết hàng</div>
+            }
+
+            <div class="mt-4">
+                <a href="@Url.Action("Index", "Products")" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Phần hiển thị đánh giá -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3 class="d-flex align-items-center justify-content-between">
+                <span>Đánh giá sản phẩm</span>
+                <span class="fs-6 text-muted">
+                    Trung bình: <strong>@ViewBag.AverageRating</strong>/5
+                    <span class="ms-2">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Math.Floor((double)ViewBag.AverageRating))
+                            {
+                                @:<span class="text-warning">★</span>
+                            }
+                            else
+                            {
+                                @:<span class="text-secondary">★</span>
+                            }
+                        }
+                    </span>
+                    <span class="ms-3">(@ViewBag.RatingCount đánh giá)</span>
+                </span>
+            </h3>
+
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <label class="mb-0">Lọc theo số sao:</label>
+                <select id="ratingFilter" class="form-select" style="width: 160px;">
+                    <option value="all" selected>Tất cả</option>
+                    <option value="5">5 sao</option>
+                    <option value="4">4 sao</option>
+                    <option value="3">3 sao</option>
+                    <option value="2">2 sao</option>
+                    <option value="1">1 sao</option>
+                </select>
+            </div>
+
+            @foreach (var review in Model.ProductReviews.Where(r => r.ParentReviewId == null).OrderByDescending(r => r.CreatedAt))
+            {
+                var likeCount = review.ReviewReactions.Count(x => x.Type == 1);
+                var dislikeCount = review.ReviewReactions.Count(x => x.Type == -1);
+                var userReaction = review.ReviewReactions.FirstOrDefault(x => x.UserId == maKH)?.Type;
+                <div class="card mb-3 review-item" data-rating="@review.Rating">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @review.User.HoTen -
+                            <!-- Hiển thị sao -->
+                            @for (int i = 0; i < review.Rating; i++)
+                            {
+                                <span class="text-warning">★</span>
+                            }
+                            (@review.Rating sao)
+                        </h5>
+                        <p class="card-text">@review.Comment</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                @review.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                            </small>
+                        </p>
+
+                        @* Ảnh đính kèm *@
+                        @if (review.ReviewImages != null && review.ReviewImages.Any())
+                        {
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                @foreach (var img in review.ReviewImages)
+                                {
+                                    <a href="~/review-images/@img.ImagePath" target="_blank">
+                                        <img src="~/review-images/@img.ImagePath" alt="review image" style="width: 90px; height: 90px; object-fit: cover; border-radius: 6px; border: 1px solid #eee;" />
+                                    </a>
+                                }
+                            </div>
+                        }
+
+                        @* Like / Dislike *@
+                        <div class="mt-2 d-flex align-items-center gap-3">
+                            <button type="button" class="btn btn-sm btn-outline-success btn-like @(userReaction == 1 ? "active" : "")" data-review-id="@review.Id">
+                                <i class="fas fa-thumbs-up"></i>
+                                <span class="like-count">@likeCount</span>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger btn-dislike @(userReaction == -1 ? "active" : "")" data-review-id="@review.Id">
+                                <i class="fas fa-thumbs-down"></i>
+                                <span class="dislike-count">@dislikeCount</span>
+                            </button>
+                        </div>
+
+                        <!-- Display replies -->
+                        @foreach (var reply in review.InverseParentReview.OrderBy(r => r.CreatedAt))
+                        {
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <h6 class="card-title">@reply.User.HoTen</h6>
+                                    <p class="card-text">@reply.Comment</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            @reply.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Form thêm trả lời -->
+                        @if (!string.IsNullOrEmpty(maKH))
+                        {
+                            <form asp-action="AddReply" method="post" class="mt-2">
+                                <input type="hidden" name="reviewId" value="@review.Id" />
+                                <div class="mb-3">
+                                    <textarea name="comment"
+                                              class="form-control"
+                                              rows="2"
+                                              placeholder="Nhập trả lời của bạn..."
+                                              required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-reply"></i> Trả lời
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+
+            <!-- Form thêm đánh giá -->
+            @if (!string.IsNullOrEmpty(maKH))
+            {
+                <h3 class="mt-4">Viết đánh giá của bạn</h3>
+                <form asp-action="AddReview" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="productId" value="@Model.MaHh" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Chọn số sao:</label>
+                        <div class="rating-group">
+                            @for (int i = 5; i >= 1; i--)
+                            {
+                                <input type="radio"
+                                       id="star-@i"
+                                       name="rating"
+                                       value="@i"
+                                @(i == 5 ? "checked" : "") />
+                                <label for="star-@i" class="rating-star">★</label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nội dung đánh giá:</label>
+                        <textarea name="comment"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Nhập cảm nhận của bạn..."
+                                  required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ảnh đính kèm (tùy chọn):</label>
+                        <input type="file" name="images" accept="image/*" class="form-control" multiple />
+                        <small class="text-muted">Có thể tải lên nhiều ảnh.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Gửi đánh giá
+                    </button>
+                </form>
+            }
+            else
+            {
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Vui lòng <a href="@Url.Action("Login", "Account")" class="alert-link">đăng nhập</a> để đánh giá sản phẩm
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Display model state errors -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Lọc review theo rating
+            $('#ratingFilter').on('change', function() {
+                const val = $(this).val();
+                if (val === 'all') {
+                    $('.review-item').show();
+                } else {
+                    const rating = parseInt(val);
+                    $('.review-item').each(function() {
+                        const r = parseInt($(this).data('rating'));
+                        $(this).toggle(r === rating);
+                    });
+                }
+            });
+
+            // Xử lý tăng giảm số lượng
+            $('#decreaseQuantity').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                if (quantity > 1) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });
+
+            $('#increaseQuantity').click(function () {
+                var quantity = parseInt($('#quantity').val());
+                if (quantity < @Model.SoLuong) {
+                    $('#quantity').val(quantity + 1);
+                }
+            });
+
+            // Xử lý khi nhập trực tiếp số lượng
+            $('#quantity').change(function () {
+                var value = parseInt($(this).val());
+                if (isNaN(value) || value < 1) {
+                    $(this).val(1);
+                } else if (value > @Model.SoLuong) {
+                    $(this).val(@Model.SoLuong);
+                }
+            });
+
+            // Like / Dislike hành vi
+            function sendReaction($btn, type) {
+                const reviewId = $btn.data('review-id');
+                $.post('/Products/ToggleReviewReaction', { reviewId: reviewId, type: type })
+                    .done(function (res) {
+                        if (res && res.success) {
+                            const card = $btn.closest('.card-body');
+                            card.find('.like-count').text(res.like);
+                            card.find('.dislike-count').text(res.dislike);
+                            // Toggle active state
+                            card.find('.btn-like').toggleClass('active', res.userReaction === 1);
+                            card.find('.btn-dislike').toggleClass('active', res.userReaction === -1);
+                        }
+                    });
+            }
+
+            $(document).on('click', '.btn-like', function () {
+                sendReaction($(this), 1);
+            });
+            $(document).on('click', '.btn-dislike', function () {
+                sendReaction($(this), -1);
+            });
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        /* Rating system */
+        .rating-group {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+
+        .rating-star {
+            font-size: 2rem;
+            color: #e4e5e9;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+            .rating-star:hover,
+            .rating-star:hover ~ .rating-star,
+            .rating-group input:checked ~ .rating-star {
+                color: #ffc107;
+                transform: scale(1.1);
+            }
+
+        .rating-group input:checked ~ .rating-star {
+            transform: scale(1.1);
+        }
+
+        .btn-like.active, .btn-dislike.active {
+            color: #fff;
+        }
+        .btn-like.active {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-dislike.active {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+    </style>
+}

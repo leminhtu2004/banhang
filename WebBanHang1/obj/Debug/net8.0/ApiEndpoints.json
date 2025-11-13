@@ -1,0 +1,163 @@
+[
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "GetAllPromotions",
+    "RelativePath": "api/Promotion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebBanHang1.Models.GiamGium, WebBanHang1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "CreatePromotion",
+    "RelativePath": "api/Promotion",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "promotion",
+        "Type": "WebBanHang1.Models.GiamGium",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebBanHang1.Models.GiamGium",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "GetPromotion",
+    "RelativePath": "api/Promotion/{maGiamGia}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maGiamGia",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "WebBanHang1.Models.GiamGium",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "UpdatePromotion",
+    "RelativePath": "api/Promotion/{maGiamGia}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maGiamGia",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "promotion",
+        "Type": "WebBanHang1.Models.GiamGium",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "DeletePromotion",
+    "RelativePath": "api/Promotion/{maGiamGia}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maGiamGia",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "CalculateDiscount",
+    "RelativePath": "api/Promotion/calculate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebBanHang1.Controllers.CalculateDiscountRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Decimal",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebBanHang1.Controllers.PromotionController",
+    "Method": "ValidatePromotion",
+    "RelativePath": "api/Promotion/validate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebBanHang1.Controllers.ValidatePromotionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

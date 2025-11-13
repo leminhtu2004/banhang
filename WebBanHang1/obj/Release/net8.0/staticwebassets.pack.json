@@ -1,0 +1,405 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\WebBanHang1.bundle.scp.css",
+      "PackagePath": "staticwebassets\\WebBanHang1.nxmfdys1mw.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\03235e40-ea4f-45e2-b755-908c40561ab7_Screenshot (5).png",
+      "PackagePath": "staticwebassets\\images\\03235e40-ea4f-45e2-b755-908c40561ab7_Screenshot (5).png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\07cc01ec-f329-45ef-8e0b-523ba48c692f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\07cc01ec-f329-45ef-8e0b-523ba48c692f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\196278f8-28bc-42f2-b8bb-c1cad8d7a5b7_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\196278f8-28bc-42f2-b8bb-c1cad8d7a5b7_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\1cd03480-2628-4609-a732-28e375f36de0_vú sữa tím.jpg",
+      "PackagePath": "staticwebassets\\images\\1cd03480-2628-4609-a732-28e375f36de0_vú sữa tím.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\1d886cc4-ed84-4b11-8ac0-464f98a11b67_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\1d886cc4-ed84-4b11-8ac0-464f98a11b67_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\2ce22d49-86b9-47ca-ad48-1004d361276f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\2ce22d49-86b9-47ca-ad48-1004d361276f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\352ce331-8516-4d91-b98f-264c81eef7b5_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\352ce331-8516-4d91-b98f-264c81eef7b5_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\36caf167-ad65-4031-a17e-153aead10f94_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\36caf167-ad65-4031-a17e-153aead10f94_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\3d18daf1-f9c8-4332-a1a2-aa80089b035b_tumblr_inline_o3brkncvpb1snovbg_1280.jpg",
+      "PackagePath": "staticwebassets\\images\\3d18daf1-f9c8-4332-a1a2-aa80089b035b_tumblr_inline_o3brkncvpb1snovbg_1280.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\3df1a6bb-1bc0-446a-bf31-d59b45419562_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg",
+      "PackagePath": "staticwebassets\\images\\3df1a6bb-1bc0-446a-bf31-d59b45419562_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\4c5fd385-3384-4fb6-9b14-816fe4dc66fa_images.jpg",
+      "PackagePath": "staticwebassets\\images\\4c5fd385-3384-4fb6-9b14-816fe4dc66fa_images.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\5372c1fc-b6a2-49b3-9fa7-878d30617b8c_Vietnamnet-Logo.png",
+      "PackagePath": "staticwebassets\\images\\5372c1fc-b6a2-49b3-9fa7-878d30617b8c_Vietnamnet-Logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\59097159-18c2-4b8e-b3f6-4461bf562f63_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\59097159-18c2-4b8e-b3f6-4461bf562f63_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\615e6cd1-772c-4b1c-8d24-6ae782950aaf_250px-Bill_Gates.jpg",
+      "PackagePath": "staticwebassets\\images\\615e6cd1-772c-4b1c-8d24-6ae782950aaf_250px-Bill_Gates.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\621fa5c5-7f0d-4810-8b2c-eec615362c03_Screenshot (3).png",
+      "PackagePath": "staticwebassets\\images\\621fa5c5-7f0d-4810-8b2c-eec615362c03_Screenshot (3).png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\62dc134a-49ab-4e42-a51e-11f574d5ebdf_chuoitieu.jpg",
+      "PackagePath": "staticwebassets\\images\\62dc134a-49ab-4e42-a51e-11f574d5ebdf_chuoitieu.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\8104421b-0799-405f-aa5a-118bb97bc12d_duaxanh.jpg",
+      "PackagePath": "staticwebassets\\images\\8104421b-0799-405f-aa5a-118bb97bc12d_duaxanh.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\83e6e3ec-4764-4ad2-86f0-02a8cff8e03c_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\83e6e3ec-4764-4ad2-86f0-02a8cff8e03c_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\881e5b4b-21c5-4eeb-a7af-5229787fa2ef_dualuoivang.jpg",
+      "PackagePath": "staticwebassets\\images\\881e5b4b-21c5-4eeb-a7af-5229787fa2ef_dualuoivang.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\88ba7480-db37-49e6-8476-501bff8fa784_Screenshot 2025-03-20 025619.png",
+      "PackagePath": "staticwebassets\\images\\88ba7480-db37-49e6-8476-501bff8fa784_Screenshot 2025-03-20 025619.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\99a92b11-392d-48bd-b3e1-56911f0a3cdc_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\99a92b11-392d-48bd-b3e1-56911f0a3cdc_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\a593eef0-6534-4013-bbaa-44e3c6d27b76_Screenshot 2025-03-07 185411.png",
+      "PackagePath": "staticwebassets\\images\\a593eef0-6534-4013-bbaa-44e3c6d27b76_Screenshot 2025-03-07 185411.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\a79700f3-00bf-4de5-b3a0-868991e34fa5_images (1).jpg",
+      "PackagePath": "staticwebassets\\images\\a79700f3-00bf-4de5-b3a0-868991e34fa5_images (1).jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\a8355d7e-571e-48c9-ba75-06952cd76b11_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\a8355d7e-571e-48c9-ba75-06952cd76b11_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\acf956d4-7ed2-4e59-ab2d-a516523f776b_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg",
+      "PackagePath": "staticwebassets\\images\\acf956d4-7ed2-4e59-ab2d-a516523f776b_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\c26a3b75-0ffa-4215-8373-bb362e863a53_tumblr_nwqtcm4cj71ugjto8o1_1280.jpg",
+      "PackagePath": "staticwebassets\\images\\c26a3b75-0ffa-4215-8373-bb362e863a53_tumblr_nwqtcm4cj71ugjto8o1_1280.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\c34ff94e-9c35-447d-86e6-cbcc91d8b8e9_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\c34ff94e-9c35-447d-86e6-cbcc91d8b8e9_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\d1aefd34-6cae-46c8-b0c4-4869e7847be8_Screenshot (8).png",
+      "PackagePath": "staticwebassets\\images\\d1aefd34-6cae-46c8-b0c4-4869e7847be8_Screenshot (8).png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\d2d43d7d-7e18-45dd-9610-5cb64e2c968c_Screenshot 2025-03-20 025619.png",
+      "PackagePath": "staticwebassets\\images\\d2d43d7d-7e18-45dd-9610-5cb64e2c968c_Screenshot 2025-03-20 025619.png"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\d5b008eb-f50f-4620-91fd-69b8f2ea3cca_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg",
+      "PackagePath": "staticwebassets\\images\\d5b008eb-f50f-4620-91fd-69b8f2ea3cca_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\d846f438-f610-468d-ba24-e31ec2d7f549_vai.jpg",
+      "PackagePath": "staticwebassets\\images\\d846f438-f610-468d-ba24-e31ec2d7f549_vai.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\e315e89e-c645-4290-97cf-bcd6a886194c_250px-Bill_Gates.jpg",
+      "PackagePath": "staticwebassets\\images\\e315e89e-c645-4290-97cf-bcd6a886194c_250px-Bill_Gates.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\images\\fcdb84c8-6272-4baf-b7a0-5e68bed9d279_maxresdefault.jpg",
+      "PackagePath": "staticwebassets\\images\\fcdb84c8-6272-4baf-b7a0-5e68bed9d279_maxresdefault.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\js\\chart.js",
+      "PackagePath": "staticwebassets\\js\\chart.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\source\\repos\\WebBanHang1\\WebBanHang1\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.WebBanHang1.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.WebBanHang1.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.WebBanHang1.props",
+      "PackagePath": "build\\WebBanHang1.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.WebBanHang1.props",
+      "PackagePath": "buildMultiTargeting\\WebBanHang1.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.WebBanHang1.props",
+      "PackagePath": "buildTransitive\\WebBanHang1.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

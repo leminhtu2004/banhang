@@ -1,0 +1,46 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Xóa khách hàng";
+}
+
+<h1>Xóa khách hàng</h1>
+
+<p>Bạn có chắc chắn muốn xóa khách hàng này không?</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã KH</th>
+        <td>@Model.MaKh</td>
+    </tr>
+    <tr>
+        <th>Họ Tên</th>
+        <td>@Model.HoTen</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Điện Thoại</th>
+        <td>@Model.DienThoai</td>
+    </tr>
+    <tr>
+        <th>Địa Chỉ</th>
+        <td>@Model.DiaChi</td>
+    </tr>
+    <tr>
+        <th>Vai Trò</th>
+        <td>@Model.VaiTroNavigation?.TenVaiTro</td>
+    </tr>
+    <tr>
+        <th>Hiệu Lực</th>
+        <td>@(Model.HieuLuc ? "Hoạt động" : "Không hoạt động")</td>
+    </tr>
+</table>
+
+<form asp-action="DeleteCustomerConfirmed" method="post">
+    <input type="hidden" asp-for="MaKh" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Customers" class="btn btn-secondary">Hủy</a>
+</form>

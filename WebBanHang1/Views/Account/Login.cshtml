@@ -1,0 +1,96 @@
+﻿@model WebBanHang1.Models.UserLogin
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Đăng nhập</h3>
+                </div>
+                <div class="card-body">
+@if (TempData["SuccessMessage"] != null)
+{
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+                                <p class="mb-1">@error.ErrorMessage</p>
+        }
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+                    <form asp-action="Login" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" placeholder="Nhập email của bạn" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MatKhau" class="form-label">Mật khẩu</label>
+                            <input asp-for="MatKhau" type="password" class="form-control" placeholder="Nhập mật khẩu" />
+                            <span asp-validation-for="MatKhau" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center my-3">
+                        <span class="text-muted">hoặc</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a asp-action="GoogleLogin" class="btn btn-outline-danger">
+                            <i class="fab fa-google me-2"></i>Đăng nhập bằng Google
+                        </a>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="ForgotPassword" class="text-decoration-none">
+                            <i class="fas fa-question-circle me-1"></i>Quên mật khẩu?
+                        </a>
+    </div>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+                        <p class="mb-0">Bạn chưa có tài khoản? 
+                            <a asp-action="Register" class="text-decoration-none">
+                                <i class="fas fa-user-plus me-1"></i>Đăng ký ngay
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebBanHang1.Models.Loai>
+
+@{
+    ViewData["Title"] = "Danh sách loại sản phẩm";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>MaLoai</th>
+            <th>TenLoai</th>
+            <th>HanhDong</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaLoai</td>
+                <td>@item.TenLoai</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaLoai">Sửa</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaLoai">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Chi tiết khách hàng";
+}
+
+<h1>Chi tiết khách hàng</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã KH</th>
+        <td>@Model.MaKh</td>
+    </tr>
+    <tr>
+        <th>Họ Tên</th>
+        <td>@Model.HoTen</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Điện Thoại</th>
+        <td>@Model.DienThoai</td>
+    </tr>
+    <tr>
+        <th>Địa Chỉ</th>
+        <td>@Model.DiaChi</td>
+    </tr>
+    <tr>
+        <th>Vai Trò</th>
+        <td>@Model.VaiTroNavigation?.TenVaiTro</td>
+    </tr>
+    <tr>
+        <th>Hiệu Lực</th>
+        <td>@(Model.HieuLuc ? "Hoạt động" : "Không hoạt động")</td>
+    </tr>
+</table>
+
+<a asp-action="Customers" class="btn btn-secondary">Quay lại</a>

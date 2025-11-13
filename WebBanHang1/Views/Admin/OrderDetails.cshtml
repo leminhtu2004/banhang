@@ -1,0 +1,346 @@
+﻿@model WebBanHang1.Models.HoaDon
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+    Layout = "_Layout"; // Đảm bảo layout chứa các thư viện cần thiết
+
+    // Tính toán các giá trị
+    // Tính toán các giá trị
+    var totalQuantity = Model.ChiTietHds.Sum(c => c.SoLuong);
+    var totalAmount = Model.ChiTietHds.Sum(c => c.SoLuong * c.DonGia);
+    var discount = Model.MaGiamGiaNavigation?.GiaTriGiam ?? 0m;
+    var shippingFee = Model.PhiVanChuyen;
+    var finalTotal = totalAmount + shippingFee - (decimal)discount;
+
+    // CẬP NHẬT: Kiểm tra trạng thái 2 = Đã thanh toán
+    var isPaid = Model.MaTrangThaiNavigation?.MaTrangThai == 2;
+
+    // Lấy thông tin trạng thái
+    var currentStatus = Model.MaTrangThaiNavigation?.MaTrangThai ?? 0;
+    var nextStatus = GetNextStatus(currentStatus);
+
+}
+
+@Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    <!-- Thông báo lỗi -->
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5><i class="fas fa-exclamation-triangle me-2"></i>Có lỗi xảy ra:</h5>
+            <ul class="mb-0">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+            <i class="fas fa-file-invoice me-2"></i>HÓA ĐƠN #@Model.MaHd
+        </h1>
+        <div class="status-badge">
+            <span class="badge @GetStatusClass(currentStatus) fs-6">
+                @Model.MaTrangThaiNavigation?.TenTrangThai
+            </span>
+        </div>
+    </div>
+
+    <!-- Thông tin chính -->
+    <div class="row g-4">
+        <!-- Thông tin đơn hàng -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>THÔNG TIN ĐƠN HÀNG</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-5">Ngày đặt hàng:</dt>
+                                <dd class="col-sm-7">@Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-5">Khách hàng:</dt>
+                                <dd class="col-sm-7">@Model.MaKhNavigation?.HoTen</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-5">Phương thức TT:</dt>
+                                <dd class="col-sm-7">@Model.CachThanhToan</dd>
+
+                                <dt class="col-sm-5">Ngày giao hàng:</dt>
+                                <dd class="col-sm-7">@(Model.NgayGiao?.ToString("dd/MM/yyyy HH:mm") ?? "Đang xử lý")</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông tin giao hàng -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0"><i class="fas fa-truck me-2"></i>THÔNG TIN GIAO HÀNG</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row g-3">
+                        <dt class="col-sm-4">Người nhận:</dt>
+                        <dd class="col-sm-8">@Model.MaKhNavigation?.HoTen</dd>
+
+                        <dt class="col-sm-4">Địa chỉ:</dt>
+                        <dd class="col-sm-8">@Model.DiaChi</dd>
+
+                        <dt class="col-sm-4">Liên hệ:</dt>
+                        <dd class="col-sm-8">
+                            @Model.MaKhNavigation?.DienThoai<br>
+                            @Model.MaKhNavigation?.Email
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0"><i class="fas fa-boxes me-2"></i>CHI TIẾT SẢN PHẨM</h4>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>MÃ SP</th>
+                            <th>TÊN SẢN PHẨM</th>
+                            <th class="text-end">ĐƠN GIÁ</th>
+                            <th class="text-center">SL</th>
+                            <th class="text-end">THÀNH TIỀN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ChiTietHds)
+                        {
+                            <tr>
+                                <td>@item.MaHh</td>
+                                <td>@item.MaHhNavigation?.TenHh</td>
+                                <td class="text-end">@item.DonGia.ToString("N0")₫</td>
+                                <td class="text-center">@item.SoLuong</td>
+                                <td class="text-end">@((item.SoLuong * item.DonGia).ToString("N0"))₫</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tổng thanh toán -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0"><i class="fas fa-calculator me-2"></i>TỔNG THANH TOÁN</h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-8 offset-md-4">
+                    <dl class="row">
+                        <dt class="col-sm-6">Tổng tiền hàng:</dt>
+                        <dd class="col-sm-6 text-end">@totalAmount.ToString("N0")₫</dd>
+
+                        <dt class="col-sm-6">Phí vận chuyển:</dt>
+                        <dd class="col-sm-6 text-end">@shippingFee.ToString("N0")₫</dd>
+
+                        @if (discount > 0)
+                        {
+                            <dt class="col-sm-6">Giảm giá (@Model.MaGiamGiaNavigation?.MaGiamGia):</dt>
+                            <dd class="col-sm-6 text-end text-danger">-@discount.ToString("N0")₫</dd>
+                        }
+
+                        <dt class="col-sm-6">Tổng cộng:</dt>
+                        <dd class="col-sm-6 text-end fw-bold border-top pt-2">@finalTotal.ToString("N0")₫</dd>
+
+                        <dt class="col-sm-6">Trạng thái TT:</dt>
+                        <dd class="col-sm-6 text-end">
+                            <span class="badge @(isPaid ? "bg-success" : "bg-danger")">
+                                @(isPaid ? "Đã thanh toán" : "Chưa thanh toán")
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control buttons -->
+    <div class="d-flex gap-2 justify-content-end mt-4">
+        @if (!IsFinalStatus(currentStatus))
+        {
+            <button class="btn btn-primary px-4"
+                    onclick="handleStatusUpdate(@nextStatus)"
+                    data-bs-toggle="tooltip"
+                    title="Chuyển sang trạng thái: @GetStatusName(nextStatus)">
+                <i class="fas fa-sync me-2"></i>CẬP NHẬT TRẠNG THÁI
+            </button>
+        }
+        <button class="btn btn-outline-secondary" onclick="window.print()">
+            <i class="fas fa-print me-2"></i>IN HÓA ĐƠN
+        </button>
+        <a asp-action="Index" class="btn btn-outline-dark">
+            <i class="fas fa-arrow-left me-2"></i>QUAY LẠI
+        </a>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card {
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0,0,0,.125);
+        }
+
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            letter-spacing: 0.5px;
+            padding: 0.65em 1.1em;
+        }
+
+        .status-badge .badge {
+            font-size: 1.1rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Khởi tạo tooltip
+        $(document).ready(function(){
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+
+        async function handleStatusUpdate(newStatus) {
+            try {
+                const { isConfirmed } = await Swal.fire({
+                    title: 'XÁC NHẬN THAY ĐỔI TRẠNG THÁI',
+                    html: `<div class="text-center">
+                             <i class="fas fa-exchange-alt fa-3x text-primary mb-3"></i>
+                             <p class="h5">Bạn đang chuyển trạng thái từ:<br>
+                             <span class="badge @GetStatusClass(currentStatus)">@GetStatusName(currentStatus)</span><br>
+                             sang<br>
+                             <span class="badge @GetStatusClass(nextStatus)">@GetStatusName(nextStatus)</span></p>
+                           </div>`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Xác nhận',
+                    cancelButtonText: 'Hủy bỏ',
+                    customClass: {
+                        confirmButton: 'btn btn-lg btn-success px-4',
+                        cancelButton: 'btn btn-lg btn-danger px-4'
+                    }
+                });
+
+                if (!isConfirmed) return;
+
+                       const response = await fetch('@Url.Action("UpdateOrderStatus", "Admin")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+            },
+            body: JSON.stringify({
+                orderId: '@Model.MaHd',
+                statusId: newStatus
+            })
+        });
+
+
+                const data = await response.json();
+
+                if (data.success) {
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'THÀNH CÔNG!',
+                        html: `<div class="text-center">
+                                 <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                                 <p class="h5">${data.message}</p>
+                               </div>`,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    location.reload();
+                } else {
+                    throw new Error(data.message || 'Cập nhật thất bại');
+                }
+            } catch (error) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'LỖI',
+                    html: `<div class="text-center">
+                             <i class="fas fa-times-circle fa-3x text-danger mb-3"></i>
+                             <p class="h5">${error.message}</p>
+                           </div>`,
+                    confirmButtonText: 'Đã hiểu',
+                    confirmButtonColor: '#3085d6'
+                });
+            }
+        }
+    </script>
+}
+
+@functions {
+    // Hàm lấy tên trạng thái - CẬP NHẬT
+    public static string GetStatusName(int statusId)
+    {
+        // CẬP NHẬT THEO DB MỚI
+        return statusId switch
+        {
+            1 => "Đang chờ xử lý",
+            2 => "Xử lý thành công",
+            _ => "KHÔNG XÁC ĐỊNH" // Case mặc định
+        };
+    }
+    // Hàm lấy class CSS - CẬP NHẬT
+    public static string GetStatusClass(int statusId)
+    {
+        return statusId switch
+        {
+            1 => "bg-secondary", // Màu xám
+            2 => "bg-success",   // Màu xanh lá
+            _ => "bg-dark"
+        };
+    }
+
+    // Hàm kiểm tra trạng thái cuối - CẬP NHẬT
+    public static bool IsFinalStatus(int statusId)
+    {
+        return statusId == 2; // Chỉ trạng thái 2 là cuối cùng
+    }
+
+    // Hàm xác định trạng thái tiếp theo - CẬP NHẬT
+    public static int GetNextStatus(int currentStatus)
+    {
+        // Chỉ cho phép chuyển từ trạng thái 1 -> 2
+        return currentStatus switch
+        {
+            1 => 2, // Đang chờ xử lý -> Xử lý thành công
+            _ => currentStatus // Giữ nguyên trạng thái nếu không hợp lệ
+        };
+    }
+}

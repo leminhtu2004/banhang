@@ -1,0 +1,65 @@
+@model WebBanHang1.Models.GiamGium
+@{
+    ViewData["Title"] = "Chỉnh sửa khuyến mãi";
+}
+<h2>Chỉnh sửa khuyến mãi</h2>
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="MaGiamGia"></label>
+        <input asp-for="MaGiamGia" class="form-control" readonly />
+        <span asp-validation-for="MaGiamGia" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LoaiGiamGia"></label>
+        <select asp-for="LoaiGiamGia" class="form-control">
+            <option value="phantram">Phần trăm</option>
+            <option value="tien">Tiền mặt</option>
+            <option value="flashsale">Flash Sale</option>
+        </select>
+        <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiaTriGiam"></label>
+        <input asp-for="GiaTriGiam" class="form-control" />
+        <span asp-validation-for="GiaTriGiam" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NgayBatDau"></label>
+        <input asp-for="NgayBatDau" class="form-control" type="date" />
+        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NgayKetThuc"></label>
+        <input asp-for="NgayKetThuc" class="form-control" type="date" />
+        <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SoLuongSuDung" class="control-label">Số lượt sử dụng toàn cầu (Để trống nếu không giới hạn)</label>
+        <input asp-for="SoLuongSuDung" class="form-control" type="number" min="1" />
+        <span asp-validation-for="SoLuongSuDung" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiaTriToiThieu" class="control-label">Giá trị đơn hàng tối thiểu (Để trống nếu không có)</label>
+        <input asp-for="GiaTriToiThieu" class="form-control" type="number" step="0.01" min="0" />
+        <span asp-validation-for="GiaTriToiThieu" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="GiaTriToiDa" class="control-label">Giá trị đơn hàng tối đa (Để trống nếu không có)</label>
+        <input asp-for="GiaTriToiDa" class="form-control" type="number" step="0.01" min="0" />
+        <span asp-validation-for="GiaTriToiDa" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SoLanSuDungToiDaMoiKhachHang" class="control-label">Số lần sử dụng tối đa mỗi khách hàng (Để trống nếu không giới hạn)</label>
+        <input asp-for="SoLanSuDungToiDaMoiKhachHang" class="form-control" type="number" min="1" />
+        <span asp-validation-for="SoLanSuDungToiDaMoiKhachHang" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <input class="form-check-input" asp-for="MotLanSuDung" />
+        <label class="form-check-label" asp-for="MotLanSuDung">Chỉ cho phép mỗi khách hàng sử dụng 1 lần</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

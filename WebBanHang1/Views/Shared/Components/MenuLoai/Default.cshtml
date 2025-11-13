@@ -1,0 +1,13 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="sidebar">
+    <h3>Danh sách loại sản phẩm</h3>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="#" class="loai-link" data-id="@item.MaLoai">@item.TenLoai (@item.ProductCount)</a>
+            </li>
+        }
+    </ul>
+</div>

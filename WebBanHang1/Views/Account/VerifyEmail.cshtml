@@ -1,0 +1,85 @@
+@model WebBanHang1.Models.VerifyEmailViewModel
+
+@{
+    ViewData["Title"] = "Xác thực email";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Xác thực email</h3>
+                </div>
+                <div class="card-body">
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <p class="mb-1">@error.ErrorMessage</p>
+                            }
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <p class="text-muted text-center mb-4">
+                        Vui lòng nhập mã xác thực đã được gửi đến email <strong>@Model.Email</strong>
+                    </p>
+
+                    <form asp-action="VerifyEmail" method="post">
+                        <input type="hidden" asp-for="Email" />
+                        <input type="hidden" asp-for="Code" />
+
+                        <div class="form-group mb-3">
+                            <label asp-for="VerificationCode" class="form-label">Mã xác thực</label>
+                            <input asp-for="VerificationCode" class="form-control text-center" 
+                                   placeholder="Nhập mã 6 chữ số" />
+                            <div class="form-text">Mã xác thực gồm 6 chữ số</div>
+                            <span asp-validation-for="VerificationCode" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check me-2"></i>Xác thực email
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <p class="text-muted">Không nhận được email?</p>
+                        <a asp-action="ResendVerification" asp-route-email="@Model.Email" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-redo me-1"></i>Gửi lại mã xác thực
+                        </a>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <a asp-action="Login" class="text-decoration-none">
+                            <i class="fas fa-arrow-left me-1"></i>Quay lại đăng nhập
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        // Chỉ cho phép nhập số
+        document.getElementById('VerificationCode').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+} 

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebBanHang1.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<h1>Quản lý khách hàng</h1>
+
+<!-- Responsive table sử dụng Bootstrap -->
+<div class="table-responsive">
+    <table class="table table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>Mã KH</th>
+            <th>Họ Tên</th>
+            <th>Email</th>
+            <th>Điện Thoại</th>
+            <th>Vai Trò</th>
+            <th>Hiệu Lực</th>
+            <th>Hành Động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.MaKh</td>
+                <td>@customer.HoTen</td>
+                <td>@customer.Email</td>
+                <td>@customer.DienThoai</td>
+                <td>@customer.VaiTroNavigation?.TenVaiTro</td>
+                <td>
+                    @if (customer.HieuLuc)
+                    {
+                        <span class="badge bg-success">Hoạt động</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Không hoạt động</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="EditCustomer" asp-route-id="@customer.MaKh" class="btn btn-primary btn-sm">Chỉnh sửa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

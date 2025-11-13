@@ -1,0 +1,62 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Sửa khách hàng";
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+<h1>Sửa thông tin khách hàng</h1>
+
+<form asp-action="EditCustomer" method="post">
+    <input type="hidden" asp-for="MaKh" />
+
+    <div class="mb-3">
+        <label asp-for="HoTen" class="form-label">Họ Tên</label>
+        <input asp-for="HoTen" class="form-control" />
+        <span asp-validation-for="HoTen" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DienThoai" class="form-label">Điện Thoại</label>
+        <input asp-for="DienThoai" class="form-control" />
+        <span asp-validation-for="DienThoai" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DiaChi" class="form-label">Địa Chỉ</label>
+        <input asp-for="DiaChi" class="form-control" />
+        <span asp-validation-for="DiaChi" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="VaiTro" class="form-label">Vai Trò</label>
+        <select asp-for="VaiTro" class="form-select" asp-items="ViewBag.Roles">
+            <option value="">-- Chọn vai trò --</option>
+        </select>
+        <span asp-validation-for="VaiTro" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="HieuLuc" class="form-label">Hiệu Lực</label>
+        <select asp-for="HieuLuc" class="form-select">
+            <option value="true">Hoạt động</option>
+            <option value="false">Không hoạt động</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Customers" class="btn btn-secondary">Hủy</a>
+</form>

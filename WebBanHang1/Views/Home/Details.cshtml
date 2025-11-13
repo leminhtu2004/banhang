@@ -1,0 +1,77 @@
+<div class="d-flex gap-2">
+    <button class="btn btn-primary add-to-cart" data-id="@Model.MaHh">
+        <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+    </button>
+    <button class="btn btn-outline-danger add-to-wishlist" data-id="@Model.MaHh">
+        <i class="fas fa-heart me-2"></i>Yêu thích
+    </button>
+</div>
+
+<!-- Sản phẩm tương tự -->
+<div class="mt-5">
+    <h3 class="mb-4">Sản phẩm tương tự</h3>
+    <div class="row" id="similarProducts">
+        <!-- Sẽ được load bằng AJAX -->
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Thêm vào yêu thích
+        $('.add-to-wishlist').click(function() {
+            var productId = $(this).data('id');
+            
+            $.post('@Url.Action("AddToWishlist", "Wishlist")', { productId: productId })
+                .done(function(response) {
+                    if (response.success) {
+                        showToast('Đã thêm vào danh sách yêu thích', 'success');
+                    } else {
+                        showToast(response.message, 'error');
+                    }
+                })
+                .fail(function() {
+                    showToast('Có lỗi xảy ra', 'error');
+                });
+        });
+
+        // Load sản phẩm tương tự
+        function loadSimilarProducts() {
+            $.get('@Url.Action("GetSimilarProducts", "Wishlist")', { productId: @Model.MaHh })
+                .done(function(response) {
+                    if (response.success) {
+                        var html = '';
+                        response.data.forEach(function(product) {
+                            html += `
+                                <div class="col-md-3 mb-4">
+                                    <div class="card h-100">
+                                        <img src="/images/products/${product.hinh}" class="card-img-top" alt="${product.tenHh}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.tenHh}</h5>
+                                            <p class="card-text text-muted">${product.categoryName}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                ${product.giamGia > 0 
+                                                    ? `<span class="text-decoration-line-through text-muted">${product.donGia.toLocaleString()} đ</span>
+                                                       <span class="text-danger ms-2">${(product.donGia * (1 - product.giamGia / 100)).toLocaleString()} đ</span>`
+                                                    : `<span class="text-primary">${product.donGia.toLocaleString()} đ</span>`
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <a href="/Home/Details/${product.maHh}" class="btn btn-primary w-100">
+                                                Xem chi tiết
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>`;
+                        });
+                        $('#similarProducts').html(html);
+                    }
+                });
+        }
+
+        // Load sản phẩm tương tự khi trang load xong
+        $(document).ready(function() {
+            loadSimilarProducts();
+        });
+    </script>
+} 

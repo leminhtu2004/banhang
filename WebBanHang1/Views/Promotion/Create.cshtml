@@ -1,0 +1,89 @@
+@model WebBanHang1.Models.GiamGium
+
+@{
+    ViewData["Title"] = "Tạo khuyến mãi mới";
+}
+
+<div class="container-fluid">
+    <h2 class="text-center mb-4">Tạo khuyến mãi mới</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="MaGiamGia" class="control-label">Mã giảm giá</label>
+                    <input asp-for="MaGiamGia" class="form-control" />
+                    <span asp-validation-for="MaGiamGia" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LoaiGiamGia" class="control-label">Loại giảm giá</label>
+                    <select asp-for="LoaiGiamGia" class="form-control">
+                        <option value="phantram">Giảm theo phần trăm</option>
+                        <option value="tien">Giảm theo số tiền</option>
+                        <option value="flashsale">Flash Sale</option>
+                    </select>
+                    <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GiaTriGiam" class="control-label">Giá trị giảm</label>
+                    <input asp-for="GiaTriGiam" class="form-control" />
+                    <span asp-validation-for="GiaTriGiam" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NgayBatDau" class="control-label">Ngày bắt đầu</label>
+                    <input asp-for="NgayBatDau" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
+                    <input asp-for="NgayKetThuc" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SoLuongSuDung" class="control-label">Số lượt sử dụng toàn cầu (Để trống nếu không giới hạn)</label>
+                    <input asp-for="SoLuongSuDung" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="SoLuongSuDung" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GiaTriToiThieu" class="control-label">Giá trị đơn hàng tối thiểu (Để trống nếu không có)</label>
+                    <input asp-for="GiaTriToiThieu" class="form-control" type="number" step="0.01" min="0" />
+                    <span asp-validation-for="GiaTriToiThieu" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GiaTriToiDa" class="control-label">Giá trị đơn hàng tối đa (Để trống nếu không có)</label>
+                    <input asp-for="GiaTriToiDa" class="form-control" type="number" step="0.01" min="0" />
+                    <span asp-validation-for="GiaTriToiDa" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SoLanSuDungToiDaMoiKhachHang" class="control-label">Số lần sử dụng tối đa mỗi khách hàng (Để trống nếu không giới hạn)</label>
+                    <input asp-for="SoLanSuDungToiDaMoiKhachHang" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="SoLanSuDungToiDaMoiKhachHang" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <input class="form-check-input" asp-for="MotLanSuDung" />
+                    <label class="form-check-label" asp-for="MotLanSuDung">Chỉ cho phép mỗi khách hàng sử dụng 1 lần</label>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Tạo khuyến mãi</button>
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} 

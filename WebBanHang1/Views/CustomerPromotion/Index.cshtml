@@ -1,0 +1,95 @@
+@model IEnumerable<WebBanHang1.Models.CustomerPromotionViewModel>
+
+@{
+    ViewData["Title"] = "Mã giảm giá của bạn";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Mã giảm giá của bạn</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var promotion = item.Promotion;
+                var customerUsage = item.CustomerUsage;
+
+                <div class="col-md-6 mb-4">
+                    <div class="card promotion-card">
+                        <div class="card-body">
+                            <h5 class="card-title">@promotion.MaGiamGia</h5>
+                            <p class="card-text">@promotion.MoTa</p>
+                            <p class="card-text"><strong>Giảm:</strong> @promotion.GiaTriGiam @(promotion.LoaiGiamGia.ToLower() == "phantram" ? "%" : "VNĐ")</p>
+                            <p class="card-text"><strong>Hiệu lực từ:</strong> @promotion.NgayBatDau.ToString("dd/MM/yyyy HH:mm")</p>
+                            <p class="card-text"><strong>Đến:</strong> @promotion.NgayKetThuc.ToString("dd/MM/yyyy HH:mm")</p>
+
+                            @if (promotion.GiaTriToiThieu.HasValue)
+                            {
+                                <p class="card-text"><strong>Đơn hàng tối thiểu:</strong> @promotion.GiaTriToiThieu.Value.ToString("N0") VNĐ</p>
+                            }
+                             @if (promotion.GiaTriToiDa.HasValue)
+                            {
+                                <p class="card-text"><strong>Đơn hàng tối đa:</strong> @promotion.GiaTriToiDa.Value.ToString("N0") VNĐ</p>
+                            }
+
+                            @if (promotion.SoLuongSuDung.HasValue)
+                            {
+                                <p class="card-text"><strong>Lượt sử dụng toàn cầu còn lại:</strong> @(promotion.SoLuongSuDung - promotion.SoLuongDaSuDung)</p>
+                            }
+
+                            @if (promotion.SoLanSuDungToiDaMoiKhachHang.HasValue || promotion.MotLanSuDung)
+                            {
+                                var remainingUses = promotion.SoLanSuDungToiDaMoiKhachHang ?? (promotion.MotLanSuDung ? 1 : 0);
+                                var usedCount = customerUsage?.SoLanSuDung ?? 0;
+                                var customerRemaining = remainingUses - usedCount;
+
+                                <p class="card-text"><strong>Lượt sử dụng của bạn còn lại:</strong> @customerRemaining @(promotion.MotLanSuDung ? "(duy nhất 1 lần)" : "")</p>
+                            }
+
+                            <div class="countdown" data-expiry-date="@promotion.NgayKetThuc.ToString("o")">
+                                Thời gian còn lại: <span class="time-remaining"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center">Hiện tại chưa có mã giảm giá nào được cập nhật</p>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function updateCountdown() {
+            document.querySelectorAll('.countdown').forEach(item => {
+                const expiryDateString = item.dataset.expiryDate;
+                const expiryDate = new Date(expiryDateString);
+                const now = new Date();
+
+                const timeDiff = expiryDate.getTime() - now.getTime();
+                const timeRemainingSpan = item.querySelector('.time-remaining');
+
+                if (timeDiff <= 0) {
+                    timeRemainingSpan.textContent = 'Hết hạn';
+                    // Optionally, hide the card or change its style
+                    // item.closest('.promotion-card').style.opacity = 0.5;
+                } else {
+                    const seconds = Math.floor((timeDiff / 1000) % 60);
+                    const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+                    timeRemainingSpan.textContent = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+                }
+            });
+        }
+
+        // Initial call and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+} 

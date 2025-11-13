@@ -1,0 +1,12 @@
+﻿@model WebBanHang1.Models.Loai
+
+<h2>Thêm loại sản phẩm</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="TenLoai"></label>
+        <input asp-for="TenLoai" class="form-control" />
+        <span asp-validation-for="TenLoai" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm</button>
+</form>

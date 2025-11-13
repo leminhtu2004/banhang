@@ -1,0 +1,152 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Đăng ký tài khoản</h3>
+                </div>
+                <div class="card-body">
+@if (TempData["SuccessMessage"] != null)
+{
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>@TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+                                <p class="mb-1">@error.ErrorMessage</p>
+        }
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+                    <form asp-action="Register" method="post">
+                        <div class="row">
+    <!-- Hiển thị trường nhập MaKh chỉ cho khách hàng đầu tiên -->
+    @if (ViewBag.HasCustomers != null && !ViewBag.HasCustomers)
+    {
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label asp-for="MaKh" class="form-label">Mã khách hàng</label>
+                                        <input asp-for="MaKh" class="form-control" placeholder="Nhập mã khách hàng" />
+                                        <span asp-validation-for="MaKh" class="text-danger"></span>
+                                    </div>
+        </div>
+    }
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="HoTen" class="form-label">Họ và tên</label>
+                                    <input asp-for="HoTen" class="form-control" placeholder="Nhập họ và tên" />
+                                    <span asp-validation-for="HoTen" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Email" class="form-label">Email</label>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Nhập email" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="MatKhau" class="form-label">Mật khẩu</label>
+                                    <input asp-for="MatKhau" type="password" class="form-control" placeholder="Nhập mật khẩu" minlength="6" />
+                                    <div class="form-text">Mật khẩu phải có ít nhất 6 ký tự</div>
+                                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                                </div>
+    </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="DienThoai" class="form-label">Điện thoại</label>
+                                    <input asp-for="DienThoai" class="form-control" placeholder="Nhập số điện thoại" />
+                                    <span asp-validation-for="DienThoai" class="text-danger"></span>
+        </div>
+    </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="NgaySinh" class="form-label">Ngày sinh</label>
+                                    <input asp-for="NgaySinh" type="date" class="form-control" />
+                                    <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                </div>
+    </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label class="form-label">Giới tính</label>
+                                    <div class="mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input asp-for="GioiTinh" class="form-check-input" type="radio" value="true" id="male" />
+                                            <label class="form-check-label" for="male">Nam</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input asp-for="GioiTinh" class="form-check-input" type="radio" value="false" id="female" />
+                                            <label class="form-check-label" for="female">Nữ</label>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                                </div>
+    </div>
+
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="DiaChi" class="form-label">Địa chỉ</label>
+                                    <textarea asp-for="DiaChi" class="form-control" rows="3" placeholder="Nhập địa chỉ"></textarea>
+                                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                                </div>
+                            </div>
+    </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Lưu ý:</strong> Sau khi đăng ký, bạn sẽ nhận được email xác thực. 
+                            Vui lòng kiểm tra hộp thư và xác thực email để kích hoạt tài khoản.
+    </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-user-plus me-2"></i>Đăng ký
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <p class="mb-0">Đã có tài khoản? 
+                            <a asp-action="Login" class="text-decoration-none">
+                                <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập ngay
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

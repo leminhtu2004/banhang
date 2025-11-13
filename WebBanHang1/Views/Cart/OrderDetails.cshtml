@@ -1,0 +1,66 @@
+﻿@model WebBanHang1.Models.HoaDon
+
+<div class="container my-4">
+    <h1 class="mb-4">Chi Tiết Đơn Hàng</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Thông tin khách hàng</h5>
+            <p><strong>Tên khách hàng:</strong> @Model.MaKhNavigation.HoTen</p>
+            <p><strong>Email:</strong> @Model.MaKhNavigation.Email</p>
+            <p><strong>Số điện thoại:</strong> @Model.MaKhNavigation.DienThoai</p>
+            <p><strong>Địa chỉ giao hàng:</strong> @Model.DiaChi</p>
+            <p><strong>Phương thức thanh toán:</strong> @Model.CachThanhToan</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Chi tiết sản phẩm</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hình Ảnh</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Đơn Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Thành Tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ChiTietHds)
+                    {
+                        <tr>
+                            <td><img src="@item.MaHhNavigation.Hinh" alt="@item.MaHhNavigation.TenHh" width="100" /></td>
+                            <td>@item.MaHhNavigation.TenHh</td>
+                            <td>@String.Format("{0:N0}", item.DonGia) đ</td>
+                            <td>@item.SoLuong</td>
+                            <td>@String.Format("{0:N0}", item.DonGia * item.SoLuong) đ</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Tóm tắt đơn hàng</h5>
+            <p><strong>Tổng tiền hàng:</strong> @String.Format("{0:N0}", Model.ChiTietHds.Sum(item => item.DonGia * item.SoLuong)) đ</p>
+            <p><strong>Phí vận chuyển:</strong> @String.Format("{0:N0}", Model.PhiVanChuyen) đ</p>
+            @if (Model.MaGiamGiaNavigation != null)
+            {
+                <p><strong>Giảm giá:</strong> -@String.Format("{0:N0}", Model.ChiTietHds.Sum(item => item.DonGia * item.SoLuong) * (decimal)Model.MaGiamGiaNavigation.GiaTriGiam / 100) đ</p>
+            }
+            <p class="h5 mt-3">
+                <strong>Tổng tiền thanh toán:</strong>
+                @String.Format("{0:N0}", Model.ChiTietHds.Sum(item => item.DonGia * item.SoLuong) + Model.PhiVanChuyen - (Model.MaGiamGiaNavigation != null ? Model.ChiTietHds.Sum(item => item.DonGia * item.SoLuong) * (decimal)Model.MaGiamGiaNavigation.GiaTriGiam / 100 : 0)) đ
+            </p>
+        </div>
+    </div>
+
+    <!-- Nút quay về trang chủ -->
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về trang chủ</a>
+    </div>
+</div>

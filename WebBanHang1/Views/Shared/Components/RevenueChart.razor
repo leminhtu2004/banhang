@@ -1,0 +1,27 @@
+﻿@page "/revenue-chart"
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop <!-- Thêm dòng này -->
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<h3>Biểu đồ Doanh Thu</h3>
+
+<canvas id="revenueChart" width="400" height="200"></canvas>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var revenueData = await Http.GetFromJsonAsync<List<RevenueData>>("api/admin/GetRevenueData?year=2025&month=3");
+            await JSRuntime.InvokeVoidAsync("renderRevenueChart", revenueData);
+        }
+    }
+
+    public class RevenueData
+    {
+        public int Day { get; set; }
+        public decimal TotalRevenue { get; set; }
+    }
+}

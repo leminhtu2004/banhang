@@ -1,0 +1,205 @@
+﻿@model IEnumerable<WebBanHang1.Models.GioHang>
+
+<div class="container">
+    <h1 class="mb-4">Giỏ hàng</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            <p class="mb-0">Giỏ hàng trống.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 100px">Hình ảnh</th>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row-@item.MaHh">
+                            <td>
+                                <img src="~/images/@item.MaHhNavigation.Hinh"
+                                     class="img-thumbnail"
+                                     alt="@item.MaHhNavigation.TenHh"
+                                     style="width: 80px; height: 80px; object-fit: cover;" />
+                            </td>
+                            <td>
+                                <h6 class="mb-0">@item.MaHhNavigation.TenHh</h6>
+                            </td>
+                            <td>@item.DonGia.ToString("N0") đ</td>
+                            <td>
+                                <div class="input-group" style="width: 120px;">
+                                    <button class="btn btn-outline-secondary change-quantity"
+                                            data-product-id="@item.MaHh"
+                                            data-action="decrease">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number"
+                                           class="form-control text-center quantity-input"
+                                           value="@item.SoLuong"
+                                           min="1"
+                                           max="32767"
+                                           id="quantity-@item.MaHh" />
+                                    <button class="btn btn-outline-secondary change-quantity"
+                                            data-product-id="@item.MaHh"
+                                            data-action="increase">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="fw-bold total-price" id="total-@item.MaHh">@((item.DonGia * item.SoLuong).ToString("N0")) đ</td>
+                            <td>
+                                <form action="@Url.Action("RemoveFromCart", "Cart")" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="@item.MaHh" />
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" class="text-end fw-bold">Tổng tiền:</td>
+                        <td colspan="2" class="text-danger fw-bold" id="grand-total">
+                            @Model.Sum(item => item.DonGia * item.SoLuong).ToString("N0") đ
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            <a href="@Url.Action("ThanhToan", "Cart")" class="btn btn-success">
+                <i class="fas fa-credit-card"></i> Thanh Toán
+            </a>
+            <a href="@Url.Action("Index", "Products")" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Tiếp tục mua hàng
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Xử lý thay đổi số lượng khi nhấn nút tăng/giảm
+            $('.change-quantity').click(function () {
+                let productId = $(this).data('product-id');
+                let action = $(this).data('action');
+                let quantityInput = $('#quantity-' + productId);
+                let currentQuantity = parseInt(quantityInput.val());
+
+                if (action === 'increase' && currentQuantity < 32767) {
+                    quantityInput.val(++currentQuantity);
+                } else if (action === 'decrease' && currentQuantity > 1) {
+                    quantityInput.val(--currentQuantity);
+                }
+
+                updateCartItem(productId, currentQuantity);
+            });
+
+            // Xử lý khi người dùng nhập trực tiếp số lượng
+            $('.quantity-input').on('input', function () {
+                let productId = $(this).attr('id').replace('quantity-', '');
+                let quantity = parseInt($(this).val());
+
+                if (isNaN(quantity) || quantity < 1) {
+                    quantity = 1;
+                } else if (quantity > 32767) {
+                    quantity = 32767;
+                }
+
+                $(this).val(quantity);
+                updateCartItem(productId, quantity);
+            });
+
+            // Hàm gửi request Ajax để cập nhật giỏ hàng
+            function updateCartItem(productId, quantity) {
+                $.ajax({
+                    url: '@Url.Action("UpdateQuantity", "Cart")',
+                    type: 'POST',
+                    data: { productId: productId, quantity: quantity },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+
+                            // Cập nhật tổng tiền của sản phẩm
+                            let totalPrice = response.price * quantity;
+                            $('#total-' + productId).text(totalPrice.toLocaleString() + " đ");
+
+                            // Cập nhật tổng tiền giỏ hàng
+                            updateGrandTotal();
+                        } else {
+                            toastr.error(response.message || "Có lỗi xảy ra");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Không thể cập nhật giỏ hàng.");
+                    }
+                });
+            }
+
+            // Cập nhật tổng tiền toàn bộ giỏ hàng
+            function updateGrandTotal() {
+                let grandTotal = 0;
+                $('.total-price').each(function () {
+                    let priceText = $(this).text().replace(" đ", "").replace(/,/g, "");
+                    grandTotal += parseFloat(priceText);
+                });
+
+                $('#grand-total').text(grandTotal.toLocaleString() + " đ");
+            }
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .table > tbody > tr > td {
+            vertical-align: middle;
+        }
+
+        .quantity-input {
+            width: 50px !important;
+            text-align: center;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .img-thumbnail {
+            transition: transform 0.2s;
+        }
+
+            .img-thumbnail:hover {
+                transform: scale(1.1);
+            }
+    </style>
+}

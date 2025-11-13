@@ -1,0 +1,117 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin cá nhân";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0"><i class="fas fa-user-edit"></i> @ViewBag.Title</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaKh" />
+
+                <div class="row">
+                    <!-- Cột trái - Thông tin cá nhân -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="HoTen" class="font-weight-bold">Họ và tên</label>
+                            <input asp-for="HoTen" class="form-control" placeholder="Nhập họ tên đầy đủ" />
+                            <span asp-validation-for="HoTen" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="GioiTinh" class="font-weight-bold">Giới tính</label>
+                            <select asp-for="GioiTinh" class="form-control custom-select">
+                                <option value="true">Nam</option>
+                                <option value="false">Nữ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NgaySinh" class="font-weight-bold">Ngày sinh</label>
+                            <input asp-for="NgaySinh" class="form-control" type="date"
+                                   max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            <span asp-validation-for="NgaySinh" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <!-- Cột phải - Thông tin liên hệ -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Email" class="font-weight-bold">Email</label>
+                            <input asp-for="Email" class="form-control" type="email"
+                                   placeholder="example@domain.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="DienThoai" class="font-weight-bold">Điện thoại</label>
+                            <input asp-for="DienThoai" class="form-control"
+                                   placeholder="Số điện thoại liên hệ" />
+                            <span asp-validation-for="DienThoai" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="DiaChi" class="font-weight-bold">Địa chỉ</label>
+                            <input asp-for="DiaChi" class="form-control"
+                                   placeholder="Địa chỉ nhận hàng" />
+                            <span asp-validation-for="DiaChi" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phần upload ảnh -->
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Hinh" class="font-weight-bold">Ảnh đại diện</label>
+                            <div class="custom-file">
+                                <input type="file" asp-for="Hinh" class="custom-file-input"
+                                       id="customFile" accept="image/*">
+                                <label class="custom-file-label" for="customFile">Chọn file ảnh...</label>
+                            </div>
+                            <small class="form-text text-muted">(Chỉ chấp nhận file ảnh: JPG, PNG)</small>
+                            <span asp-validation-for="Hinh" class="text-danger small"></span>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.Hinh))
+                        {
+                            <div class="current-avatar mt-2">
+                                <span class="font-weight-bold">Ảnh hiện tại:</span>
+                                <img src="@Model.Hinh" class="img-thumbnail mt-2"
+                                     style="max-width: 150px;" alt="Ảnh đại diện" />
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Nút điều khiển -->
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save"></i> Lưu thay đổi
+                    </button>
+                    <a asp-action="Profile" class="btn btn-outline-secondary btn-lg ml-2">
+                        <i class="fas fa-times"></i> Hủy bỏ
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <!-- Script cho file upload -->
+    <script>
+        document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+            var fileName = document.getElementById("customFile").files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿@model WebBanHang1.Models.KhachHang
+
+@{
+    ViewBag.Title = "Thông tin khách hàng";
+    // Add Font Awesome CSS
+    ViewBag.AddFontAwesome = true;
+}
+
+<h2>Thông tin khách hàng</h2>
+
+<div class="card">
+    <div class="card-body">
+        <!-- Avatar Section -->
+        <div class="mb-4">
+            <form asp-action="UploadAvatar" asp-controller="Account" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div class="avatar-container" style="position: relative; width: 200px;">
+                    <img src="@(string.IsNullOrEmpty(Model.Hinh) ? "/images/default-avatar.png" : Model.Hinh)"
+                         alt="Avatar"
+                         class="img-fluid rounded-circle"
+                         style="width: 200px; height: 200px; object-fit: cover; border: 3px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+
+                    <input type="file" name="avatarFile" id="avatarFile" accept="image/*" style="display: none;"
+                           onchange="this.form.submit()" />
+
+                    <label for="avatarFile"
+                           class="btn btn-light rounded-circle d-flex align-items-center justify-content-center"
+                           style="position: absolute; bottom: 10px; right: 10px; width: 40px; height: 40px; padding: 0; cursor: pointer;">
+                        <i class="fas fa-camera text-muted"></i>
+                    </label>
+                </div>
+            </form>
+        </div>
+
+        <h5 class="card-title">Họ tên: @Model.HoTen</h5>
+        <p class="card-text">Giới tính: @(Model.GioiTinh ? "Nam" : "Nữ")</p>
+        <p class="card-text">Ngày sinh: @Model.NgaySinh.ToString("dd/MM/yyyy")</p>
+        <p class="card-text">Địa chỉ: @Model.DiaChi</p>
+        <p class="card-text">Số điện thoại: @Model.DienThoai</p>
+        <p class="card-text">Email: @Model.Email</p>
+    </div>
+</div>
+
+<a href="@Url.Action("Edit", "Account")" class="btn btn-primary mt-3">
+    <i class="fas fa-edit me-2"></i>Chỉnh sửa thông tin
+</a>
+
+<hr />
+<h4>Tài khoản Google liên kết</h4>
+@if (Model.GoogleAuths != null && Model.GoogleAuths.Any(g => g.HieuLuc))
+{
+    foreach (var google in Model.GoogleAuths.Where(g => g.HieuLuc))
+    {
+        <div class="d-flex align-items-center mb-2">
+            <img src="@(string.IsNullOrEmpty(google.Picture) ? "/images/default-avatar.png" : google.Picture)" alt="Google Avatar" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-right:10px;" />
+            <span class="me-2">@google.Email (@google.Name)</span>
+            <form asp-action="UnlinkGoogle" asp-controller="Account" method="post" class="d-inline ms-2">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="googleId" value="@google.GoogleId" />
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn hủy liên kết Google này?');">
+                    <i class="fab fa-google me-1"></i>Hủy liên kết
+                </button>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-info">Bạn chưa liên kết tài khoản Google nào.</div>
+    <a asp-action="LinkGoogle" class="btn btn-danger mt-2">
+        <i class="fab fa-google me-1"></i>Liên kết Google
+    </a>
+}
+
+@if (ViewBag.AddFontAwesome)
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+}
+
+<style>
+    .avatar-container:hover .btn-light {
+        background-color: #e9ecef !important;
+    }
+
+    .avatar-container img {
+        transition: transform 0.3s ease;
+    }
+
+    .avatar-container:hover img {
+        transform: scale(1.05);
+    }
+</style>

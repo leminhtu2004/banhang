@@ -1,0 +1,251 @@
+﻿@model IEnumerable<WebBanHang1.Models.HangHoa>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Sản phẩm</h2>
+
+    <div class="row">
+        <!-- Sidebar Filter -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Bộ lọc tìm kiếm</h4>
+                </div>
+                <div class="card-body">
+                    <form id="filterForm" method="get">
+                        <div class="mb-3">
+                            <label class="form-label">Tên sản phẩm</label>
+                            <input type="text" name="searchString"
+                                   class="form-control"
+                                   value="@ViewBag.SearchString"
+                                   placeholder="Nhập tên sản phẩm..." />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Khoảng giá</label>
+                            <div class="input-group mb-2">
+                                <input type="number" name="minPrice"
+                                       class="form-control"
+                                       value="@ViewBag.MinPrice"
+                                       placeholder="Giá từ" />
+                            </div>
+                            <div class="input-group">
+                                <input type="number" name="maxPrice"
+                                       class="form-control"
+                                       value="@ViewBag.MaxPrice"
+                                       placeholder="Đến giá" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </form>
+
+                    <div class="mt-4">
+                        <h5>Danh mục sản phẩm</h5>
+                        @await Component.InvokeAsync("MenuLoai")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product List -->
+        <div class="col-md-9">
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @ViewBag.Error
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @ViewBag.Message
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+
+            <div class="mb-3">
+                <span class="text-muted">Tìm thấy @ViewBag.ResultCount sản phẩm</span>
+            </div>
+
+            <div class="row g-4" id="productList">
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card h-100 product-card">
+                            <div class="position-relative">
+                                <a href="@Url.Action("Details", "Products", new { id = product.MaHh })">
+                                    <img src="~/images/@product.Hinh"
+                                         class="card-img-top product-img"
+                                         alt="@product.TenHh"
+                                         loading="lazy" />
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-truncate">@product.TenHh</h5>
+                                <p class="card-text text-danger fw-bold">
+                                    @product.DonGia.ToString("N0") đ
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0">
+                                @if (Context.Session.GetString("MaKH") != null)
+                                {
+                                    <button class="btn btn-primary w-100 add-to-cart"
+                                            data-product-id="@product.MaHh">
+                                        <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                                    </button>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Login", "Account")" class="btn btn-outline-primary w-100">
+                                        <i class="fas fa-sign-in-alt"></i> Đăng nhập để mua hàng
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" href="@Url.Action("Index", new { page = i, searchString = ViewBag.SearchString, minPrice = ViewBag.MinPrice, maxPrice = ViewBag.MaxPrice })">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .product-card {
+            transition: transform 0.2s;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+
+        .product-img {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Debounce function
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Handle form submission
+            function handleFilter(event) {
+                event.preventDefault();
+                const form = $(this);
+
+                $.ajax({
+                    url: '@Url.Action("Index", "Products")',
+                    type: 'GET',
+                    data: form.serialize(),
+                    beforeSend: function() {
+                        $('#productList').addClass('opacity-50');
+                    },
+                    success: function(response) {
+                        const newContent = $(response).find('#productList').html();
+                        $('#productList').html(newContent);
+
+                        // Update URL with filter params
+                        const queryString = '?' + form.serialize();
+                        history.pushState(null, '', queryString);
+                    },
+                    error: function() {
+                        toastr.error('Có lỗi xảy ra khi lọc sản phẩm.');
+                    },
+                    complete: function() {
+                        $('#productList').removeClass('opacity-50');
+                    }
+                });
+            }
+
+            // Handle category filter
+            $(document).on('click', '.category-link', function(e) {
+                e.preventDefault();
+                const categoryId = $(this).data('id');
+
+                $.ajax({
+                    url: '@Url.Action("GetProductsByCategory", "Products")',
+                    type: 'GET',
+                    data: { categoryId: categoryId },
+                    beforeSend: function() {
+                        $('#productList').addClass('opacity-50');
+                    },
+                    success: function(response) {
+                        $('#productList').html(response);
+                        history.pushState(null, '', `?category=${categoryId}`);
+                    },
+                    error: function() {
+                        toastr.error('Có lỗi xảy ra khi lọc danh mục.');
+                    },
+                    complete: function() {
+                        $('#productList').removeClass('opacity-50');
+                    }
+                });
+            });
+
+            // Handle add to cart
+            $(document).on('click', '.add-to-cart', function() {
+                const productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '@Url.Action("AddToCart", "Cart")',
+                    type: 'POST',
+                    data: { id: productId },
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success('Đã thêm sản phẩm vào giỏ hàng');
+                            // Update cart count if necessary
+                            if (response.cartCount) {
+                                $('#cartCount').text(response.cartCount);
+                            }
+                        } else {
+                            toastr.error(response.message || 'Có lỗi xảy ra');
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Không thể thêm sản phẩm vào giỏ hàng');
+                    }
+                });
+            });
+
+            // Apply debounce to form submission
+            const debouncedFilter = debounce(handleFilter, 500);
+            $('#filterForm').on('submit', debouncedFilter);
+
+            // Handle input changes
+            $('#filterForm input').on('change', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

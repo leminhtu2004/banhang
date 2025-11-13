@@ -1,0 +1,81 @@
+﻿@model WebBanHang1.Models.HoaDon
+
+<div class="container my-4">
+    <h1 class="mb-4">Thông Tin Đơn Hàng</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Chi tiết đơn hàng</h5>
+            <div class="order-details">
+                <!-- Thông tin khách hàng -->
+                @if (!string.IsNullOrEmpty(TempData["CustomerName"]?.ToString()))
+                {
+                    <p><strong>Tên khách hàng:</strong> @TempData["CustomerName"]</p>
+                }
+                @if (!string.IsNullOrEmpty(TempData["CustomerEmail"]?.ToString()))
+                {
+                    <p><strong>Email:</strong> @TempData["CustomerEmail"]</p>
+                }
+                @if (!string.IsNullOrEmpty(TempData["CustomerPhone"]?.ToString()))
+                {
+                    <p><strong>Số điện thoại:</strong> @TempData["CustomerPhone"]</p>
+                }
+                @if (!string.IsNullOrEmpty(TempData["CustomerAddress"]?.ToString()))
+                {
+                    <p><strong>Địa chỉ giao hàng:</strong> @TempData["CustomerAddress"]</p>
+                }
+                @if (!string.IsNullOrEmpty(TempData["PaymentMethod"]?.ToString()))
+                {
+                    <p><strong>Phương thức thanh toán:</strong> @TempData["PaymentMethod"]</p>
+                }
+
+                <!-- Mã giảm giá -->
+                @if (!string.IsNullOrEmpty(TempData["DiscountCode"]?.ToString()))
+                {
+                    <p><strong>Mã giảm giá:</strong> @TempData["DiscountCode"]</p>
+                }
+
+                <hr>
+
+                <!-- Tóm tắt đơn hàng -->
+                <div class="order-summary">
+                    <p><strong>Tổng tiền hàng:</strong> @String.Format("{0:N0}", ViewBag.SubTotal ?? 0) đ</p>
+                    <p><strong>Phí vận chuyển:</strong> @String.Format("{0:N0}", ViewBag.ShippingFee ?? 0) đ</p>
+
+                    @if (ViewBag.DiscountAmount != null && ViewBag.DiscountAmount > 0)
+                    {
+                        <p><strong>Giảm giá:</strong> -@String.Format("{0:N0}", ViewBag.DiscountAmount) đ</p>
+                    }
+
+                    <p class="h5 mt-3">
+                        <strong>Tổng tiền thanh toán:</strong>
+                        @String.Format("{0:N0}", TempData["TotalAmount"] ?? 0) đ
+                    </p>
+                </div>
+            </div>
+
+            <!-- Nút quay về trang chủ -->
+            <div class="mt-4">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về trang chủ</a>
+                @if (TempData["OrderId"] != null)
+                {
+                    <a href="@Url.Action("OrderDetails", "Cart", new { id = TempData["OrderId"] })"
+                       class="btn btn-outline-info ms-2">
+                        Xem chi tiết đơn hàng
+                    </a>
+                    <a href="@Url.Action("GenerateInvoice", "Cart", new { orderId = TempData["OrderId"] })"
+                       class="btn btn-outline-success ms-2">
+                        <i class="fas fa-file-pdf"></i> Xuất Hóa Đơn PDF
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

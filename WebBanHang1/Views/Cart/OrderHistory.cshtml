@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebBanHang1.Models.HoaDon>
+
+<div class="container my-4">
+    <h1 class="mb-4">Lịch Sử Mua Hàng</h1>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Ngày Đặt</th>
+                <th>Trạng Thái</th>
+                <th>Phương Thức Thanh Toán</th>
+                <th>Chi Tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.MaHd</td>
+                    <td>@order.NgayDat.ToString("dd/MM/yyyy")</td>
+                    <td>@order.MaTrangThaiNavigation.TenTrangThai</td>
+                    <td>@order.CachThanhToan</td>
+                    <td>
+                        <a href="@Url.Action("OrderDetails", "Cart", new { id = order.MaHd })" class="btn btn-info">Xem Chi Tiết</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("OrderHistory", new { page = i })">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

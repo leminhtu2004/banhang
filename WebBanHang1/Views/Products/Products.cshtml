@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebBanHang1.Models.HangHoa>
+
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+}
+
+<h2>Quản lý sản phẩm</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Thêm sản phẩm mới</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Hình ảnh</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hangHoa in Model)
+        {
+            <tr>
+                <td>@hangHoa.TenHh</td>
+                <td>@hangHoa.DonGia.ToString("C")</td> <!-- Hiển thị giá với định dạng tiền tệ -->
+                <td>
+                    @if (!string.IsNullOrEmpty(hangHoa.Hinh))
+                    {
+                        <img src="~/images/@hangHoa.Hinh" alt="@hangHoa.TenHh" style="max-width: 100px; height: auto;" />
+                    }
+                    else
+                    {
+                        <span>Không có hình ảnh</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@hangHoa.MaHh" class="btn btn-warning">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@hangHoa.MaHh" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

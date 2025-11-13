@@ -1,0 +1,23 @@
+@model WebBanHang1.Models.GiamGium
+@{
+    ViewData["Title"] = "Chi tiết khuyến mãi";
+}
+<h2>Chi tiết khuyến mãi</h2>
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Mã giảm giá</dt>
+            <dd class="col-sm-9">@Model.MaGiamGia</dd>
+            <dt class="col-sm-3">Loại giảm giá</dt>
+            <dd class="col-sm-9">@Model.LoaiGiamGia</dd>
+            <dt class="col-sm-3">Giá trị giảm</dt>
+            <dd class="col-sm-9">@Model.GiaTriGiam</dd>
+            <dt class="col-sm-3">Ngày bắt đầu</dt>
+            <dd class="col-sm-9">@Model.NgayBatDau.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-3">Ngày kết thúc</dt>
+            <dd class="col-sm-9">@Model.NgayKetThuc.ToString("dd/MM/yyyy")</dd>
+        </dl>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        <a asp-action="Edit" asp-route-id="@Model.MaGiamGia" class="btn btn-warning">Chỉnh sửa</a>
+    </div>
+</div> 

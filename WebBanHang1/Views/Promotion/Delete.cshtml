@@ -1,0 +1,30 @@
+@model WebBanHang1.Models.GiamGium
+@{
+    ViewData["Title"] = "Xóa khuyến mãi";
+}
+
+<h2>Xóa khuyến mãi</h2>
+
+<h3>Bạn có chắc chắn muốn xóa mã khuyến mãi này không?</h3>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Mã giảm giá</dt>
+            <dd class="col-sm-9">@Model.MaGiamGia</dd>
+            <dt class="col-sm-3">Loại giảm giá</dt>
+            <dd class="col-sm-9">@Model.LoaiGiamGia</dd>
+            <dt class="col-sm-3">Giá trị giảm</dt>
+            <dd class="col-sm-9">@Model.GiaTriGiam</dd>
+            <dt class="col-sm-3">Ngày bắt đầu</dt>
+            <dd class="col-sm-9">@Model.NgayBatDau.ToString("dd/MM/yyyy")</dd>
+            <dt class="col-sm-3">Ngày kết thúc</dt>
+            <dd class="col-sm-9">@Model.NgayKetThuc.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.MaGiamGia" method="post">
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+        </form>
+    </div>
+</div> 

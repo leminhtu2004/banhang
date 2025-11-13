@@ -1,0 +1,154 @@
+@model IEnumerable<WebBanHang1.Models.GiamGium>
+
+<style>
+    .inactive-promotion {
+        background-color: #f8d7da; /* Light red background */
+    }
+</style>
+
+<div class="section-header">
+    <h2>Quản lý khuyến mãi</h2>
+    <div class="filter-group">
+        <a asp-controller="AdminPromotion" asp-action="Create" class="btn-primary">
+            <i class="fas fa-plus"></i> Tạo khuyến mãi mới
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Mã giảm giá</th>
+                <th>Loại giảm giá</th>
+                <th>Giá trị giảm</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Trạng thái / Tự động xóa sau</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="@(item.HieuLuc ? "" : "inactive-promotion")">
+                        <td>@item.MaGiamGia</td>
+                        <td>@item.LoaiGiamGia</td>
+                        <td>@item.GiaTriGiam</td>
+                        <td>@item.NgayBatDau.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@item.NgayKetThuc.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            @if (item.HieuLuc)
+                            {
+                                <span>Đang hoạt động</span>
+                            }
+                            else
+                            {
+                                <span>Không hiệu lực</span><br />
+                                var deletionTime = (item.NgayCapNhat ?? item.NgayTao)?.AddHours(1);
+                                if (deletionTime.HasValue)
+                                {
+                                     <div class="countdown" data-deletion-time="@(deletionTime.Value.ToString("o"))">
+                                         Xóa sau: <span class="time-remaining"></span>
+                                     </div>
+                                }
+                                else
+                                {
+                                     <span>(Thời gian xóa không xác định)</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                 <a asp-controller="AdminPromotion" asp-action="Edit" asp-route-id="@item.MaGiamGia" class="btn btn-sm btn-info">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                               
+                                 <a asp-controller="AdminPromotion" asp-action="Details" asp-route-id="@item.MaGiamGia" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                @* Nút xóa cứng - chỉ hiển thị cho mã không hiệu lực để admin có thể xóa ngay *@
+                                @if (!item.HieuLuc)
+                                {
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="deletePromotionPermanently('@item.MaGiamGia')">
+                                        <i class="fas fa-trash"></i> Xóa vĩnh viễn
+                                    </button>
+                                }
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center">Không có khuyến mãi nào được tìm thấy.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> 
+
+@section Scripts {
+    <script>
+        function updateCountdown() {
+            document.querySelectorAll('.countdown').forEach(item => {
+                const deletionTimeString = item.dataset.deletionTime;
+                const deletionTime = new Date(deletionTimeString);
+                const now = new Date();
+
+                const timeDiff = deletionTime.getTime() - now.getTime();
+                const timeRemainingSpan = item.querySelector('.time-remaining');
+
+                if (timeDiff <= 0) {
+                    timeRemainingSpan.textContent = 'Sắp bị xóa...';
+                    // Optionally, update UI if deletion time passed
+                } else {
+                    const seconds = Math.floor((timeDiff / 1000) % 60);
+                    const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+                    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+                    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+                    timeRemainingSpan.textContent = `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+                }
+            });
+        }
+
+        // Initial call and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+         // Function to handle permanent deletion (Admin action)
+         function deletePromotionPermanently(maGiamGia) {
+            if (confirm('Bạn có chắc chắn muốn xóa vĩnh viễn khuyến mãi này? Hành động này không thể hoàn tác.')) {
+                 // Implement AJAX call to a new AdminPromotionController action for permanent deletion
+                 // This action should call _promotionService.DeletePromotionAsync(maGiamGia);
+                // alert('Tính năng xóa vĩnh viễn chưa được implement.'); // Placeholder
+                 $.ajax({
+                     url: '/AdminPromotion/DeleteConfirmedPermanently/' + maGiamGia, // Giả định route/action mới
+                     type: 'POST', // Sử dụng POST cho hành động xóa
+                     headers: { 'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() }, // Thêm Anti-Forgery Token nếu cần
+                     success: function (result) {
+                         location.reload(); // Tải lại trang sau khi xóa thành công
+                     },
+                     error: function (error) {
+                         alert('Có lỗi xảy ra khi xóa vĩnh viễn khuyến mãi!');
+                     }
+                 });
+            }
+        }
+
+        // Optional: Function to handle soft deactivation if needed
+        // function deactivatePromotion(maGiamGia) {
+        //     if (confirm('Bạn có chắc chắn muốn vô hiệu hóa khuyến mãi này?')) {
+        //          // Implement AJAX call to a new AdminPromotionController action for deactivation
+        //          alert('Tính năng vô hiệu hóa chưa được implement.'); // Placeholder
+        //          // window.location.reload(); // Reload after successful deactivation
+        //     }
+        // }
+
+    </script>
+} 

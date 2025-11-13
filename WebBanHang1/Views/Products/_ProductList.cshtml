@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebBanHang1.Models.HangHoa>
+
+<div id="product-list">
+    @if (Model.Any())
+    {
+        foreach (var product in Model)
+        {
+            <div class="product-item">
+                <h4>@product.TenHh</h4>
+                <p>Giá: @product.DonGia</p>
+                <a href="@Url.Action("Details", "Products", new { id = product.MaHh })">
+                    <img src="~/images/@product.Hinh" alt="@product.TenHh" style="max-width: 200px; height: auto;" />
+                </a>
+                @if (Context.Session.GetString("MaKH") != null) // Sử dụng Context.Session
+                {
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.MaHh })" class="btn btn-primary">Thêm vào giỏ hàng</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")" class="btn btn-primary">Đăng nhập để thêm vào giỏ hàng</a>
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <p>Không có sản phẩm nào trong loại này.</p>
+    }
+</div>

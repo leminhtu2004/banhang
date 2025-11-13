@@ -1,0 +1,109 @@
+wwwroot\css\site.css
+wwwroot\favicon.ico
+wwwroot\images\03235e40-ea4f-45e2-b755-908c40561ab7_Screenshot (5).png
+wwwroot\images\07cc01ec-f329-45ef-8e0b-523ba48c692f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\196278f8-28bc-42f2-b8bb-c1cad8d7a5b7_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\1b9432ce-710a-4a2b-b8d1-049e439bfe52_Screenshot (37).png
+wwwroot\images\1cd03480-2628-4609-a732-28e375f36de0_vú sữa tím.jpg
+wwwroot\images\1d886cc4-ed84-4b11-8ac0-464f98a11b67_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\2ce22d49-86b9-47ca-ad48-1004d361276f_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\352ce331-8516-4d91-b98f-264c81eef7b5_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\36caf167-ad65-4031-a17e-153aead10f94_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\3d18daf1-f9c8-4332-a1a2-aa80089b035b_tumblr_inline_o3brkncvpb1snovbg_1280.jpg
+wwwroot\images\3df1a6bb-1bc0-446a-bf31-d59b45419562_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg
+wwwroot\images\4c5fd385-3384-4fb6-9b14-816fe4dc66fa_images.jpg
+wwwroot\images\4f5ae727-491c-47b4-bc77-d8c4748220d2_Screenshot (3).png
+wwwroot\images\5372c1fc-b6a2-49b3-9fa7-878d30617b8c_Vietnamnet-Logo.png
+wwwroot\images\59097159-18c2-4b8e-b3f6-4461bf562f63_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\5a0df7cb-8aca-4170-9e47-6719cebffc1d_Screenshot (9).png
+wwwroot\images\615e6cd1-772c-4b1c-8d24-6ae782950aaf_250px-Bill_Gates.jpg
+wwwroot\images\621fa5c5-7f0d-4810-8b2c-eec615362c03_Screenshot (3).png
+wwwroot\images\62dc134a-49ab-4e42-a51e-11f574d5ebdf_chuoitieu.jpg
+wwwroot\images\751d28fb-858b-4ee2-b881-4d0f98098b1b_Screenshot (27).png
+wwwroot\images\7a86d2b7-e41c-4f8d-a994-60bd8f8bc515_Screenshot (8).png
+wwwroot\images\8104421b-0799-405f-aa5a-118bb97bc12d_duaxanh.jpg
+wwwroot\images\83e6e3ec-4764-4ad2-86f0-02a8cff8e03c_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\87d170d9-cacb-4df5-830d-cb4360c7e1d4_Screenshot (3).png
+wwwroot\images\881e5b4b-21c5-4eeb-a7af-5229787fa2ef_dualuoivang.jpg
+wwwroot\images\88ba7480-db37-49e6-8476-501bff8fa784_Screenshot 2025-03-20 025619.png
+wwwroot\images\99a92b11-392d-48bd-b3e1-56911f0a3cdc_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\9c1df2ca-2790-46ae-8552-7df9764d5456_Screenshot (2).png
+wwwroot\images\a141896f-07a7-4978-baa8-768e28f01a1b_Screenshot (1).png
+wwwroot\images\a593eef0-6534-4013-bbaa-44e3c6d27b76_Screenshot 2025-03-07 185411.png
+wwwroot\images\a79700f3-00bf-4de5-b3a0-868991e34fa5_images (1).jpg
+wwwroot\images\a8355d7e-571e-48c9-ba75-06952cd76b11_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\acf956d4-7ed2-4e59-ab2d-a516523f776b_z6342773736308_f0fe4a6642fe318c2515e4c13b07374e.jpg
+wwwroot\images\avatars\avatar_KH001_20250818192420.png
+wwwroot\images\b320eaa7-de97-40dd-85b6-60b457cf630a_Screenshot (8).png
+wwwroot\images\c26a3b75-0ffa-4215-8373-bb362e863a53_tumblr_nwqtcm4cj71ugjto8o1_1280.jpg
+wwwroot\images\c34ff94e-9c35-447d-86e6-cbcc91d8b8e9_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\ce3a243d-a94b-49b9-8a16-77137d0e4628_Screenshot (2).png
+wwwroot\images\d1aefd34-6cae-46c8-b0c4-4869e7847be8_Screenshot (8).png
+wwwroot\images\d2d43d7d-7e18-45dd-9610-5cb64e2c968c_Screenshot 2025-03-20 025619.png
+wwwroot\images\d5b008eb-f50f-4620-91fd-69b8f2ea3cca_LOGO GOOGLE – THIẾT KẾ LOGO CỦA ÔNG LỚN GOOGLE - Brasol -Thiết kế nhận diện thương hiệu chuyên nghiệp.jpg
+wwwroot\images\d846f438-f610-468d-ba24-e31ec2d7f549_vai.jpg
+wwwroot\images\e0667926-c252-4d7a-816b-b648d482a8d3_Screenshot (1).png
+wwwroot\images\e315e89e-c645-4290-97cf-bcd6a886194c_250px-Bill_Gates.jpg
+wwwroot\images\f3da7681-fb8d-4fe4-a07f-855f2a0ab78e_Screenshot (25).png
+wwwroot\images\fcdb84c8-6272-4baf-b7a0-5e68bed9d279_maxresdefault.jpg
+wwwroot\js\chart.js
+wwwroot\js\notification.js
+wwwroot\js\site.js
+wwwroot\lib\bootstrap\dist\css\bootstrap.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css
+wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.js.map
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js
+wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map
+wwwroot\lib\bootstrap\LICENSE
+wwwroot\lib\jquery\dist\jquery.js
+wwwroot\lib\jquery\dist\jquery.min.js
+wwwroot\lib\jquery\dist\jquery.min.map
+wwwroot\lib\jquery\LICENSE.txt
+wwwroot\lib\jquery-validation\dist\additional-methods.js
+wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+wwwroot\lib\jquery-validation\LICENSE.md
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
+wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\review-images\c33754c1-210f-43e1-a12a-5e8d56f3fe2e_Screenshot (1).png

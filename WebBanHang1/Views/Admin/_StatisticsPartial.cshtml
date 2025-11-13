@@ -1,0 +1,507 @@
+﻿@{
+    Layout = null; // Không sử dụng layout
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống Kê Hệ Thống</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f4f6fa;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .card-header {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .filter-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .stat-card {
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+        }
+        .stat-card .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .stat-card h3 {
+            font-size: 2.1rem;
+            font-weight: 700;
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            font-weight: 600;
+        }
+        .legend-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .legend-color {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0 text-primary"><i class="fas fa-chart-pie me-2"></i>Thống Kê Hệ Thống</h1>
+            <span class="d-none d-md-inline-block text-muted"><i class="fas fa-info-circle me-1"></i>Chọn bộ lọc để xem báo cáo chi tiết</span>
+        </div>
+        <!-- Filter Section -->
+        <div class="filter-card mb-4">
+            <div class="row g-3 align-items-end">
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Năm</label>
+                    <select id="yearSelect" class="form-select shadow-sm"></select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Tháng</label>
+                    <select id="monthSelect" class="form-select shadow-sm">
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <option value="@i">Tháng @i</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label class="form-label">Danh mục</label>
+                    <select id="categorySelect" class="form-select shadow-sm">
+                        <option value="">Tất cả danh mục</option>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.MaLoai">@category.TenLoai</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Overview Stats -->
+        <div id="overviewStats" class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="card stat-card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng doanh thu</h5>
+                        <h3 class="card-text" id="totalRevenue">@((ViewBag.TotalRevenue != null ? ((decimal)ViewBag.TotalRevenue).ToString("N0") + " đ" : "0 đ"))</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng đơn hàng đã xử lý</h5>
+                        <h3 class="card-text" id="totalOrders">@ViewBag.TotalOrders</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng sản phẩm đã bán</h5>
+                        <h3 class="card-text" id="totalProducts">@ViewBag.TotalProductsSold</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Tổng giảm giá</h5>
+                        <h3 class="card-text" id="totalDiscounts">0 đ</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Charts -->
+        <div class="row g-4">
+            <!-- Revenue Chart -->
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-primary text-white d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-wallet me-2"></i>Doanh Thu Theo Ngày</span>
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Biểu đồ doanh thu từng ngày trong tháng."></i>
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-primary"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Top Products Chart -->
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-success text-white d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-star me-2"></i>Top Sản Phẩm Bán Chạy</span>
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Top 10 sản phẩm bán chạy nhất."></i>
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-success"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="topProductsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Category Distribution Chart -->
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-info text-white d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-tags me-2"></i>Phân Bố Theo Danh Mục</span>
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Tỷ lệ doanh thu theo từng danh mục."></i>
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-info"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Supplier Performance Chart -->
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-warning text-white d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-truck me-2"></i>Hiệu Quả Nhà Cung Cấp</span>
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Doanh thu theo từng nhà cung cấp."></i>
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-warning"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="supplierChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Discount Usage Chart -->
+            <div class="col-12">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-danger text-white d-flex align-items-center justify-content-between">
+                        <span><i class="fas fa-percent me-2"></i>Sử Dụng Mã Giảm Giá</span>
+                        <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="Tổng số tiền giảm giá theo từng mã."></i>
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="loading-overlay">
+                            <div class="spinner-border text-danger"></div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="discountChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Toast notification -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055">
+            <div id="toastMsg" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"></div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        (() => {
+            const currentYear = new Date().getFullYear();
+            let charts = {
+                revenue: null,
+                topProducts: null,
+                category: null,
+                supplier: null,
+                discount: null
+            };
+            // Chart Configurations
+            const chartConfigs = {
+                revenue: {
+                    type: 'line',
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (context) => formatCurrency(context.raw)
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: (value) => formatCurrency(value)
+                                }
+                            }
+                        }
+                    }
+                },
+                topProducts: {
+                    type: 'bar',
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                },
+                category: {
+                    type: 'pie',
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'right' }
+                        }
+                    }
+                },
+                supplier: {
+                    type: 'bar',
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                },
+                discount: {
+                    type: 'bar',
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                }
+            };
+            // Initialize
+            document.addEventListener('DOMContentLoaded', () => {
+                initYearDropdown();
+                setCurrentMonth();
+                initEventListeners();
+                updateAllCharts();
+                // Tooltip
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            });
+            function initYearDropdown() {
+                const yearSelect = document.getElementById('yearSelect');
+                for (let year = currentYear - 5; year <= currentYear; year++) {
+                    yearSelect.add(new Option(year, year));
+                }
+                yearSelect.value = currentYear;
+            }
+            function setCurrentMonth() {
+                document.getElementById('monthSelect').value = new Date().getMonth() + 1;
+            }
+            function initEventListeners() {
+                ['yearSelect', 'monthSelect', 'categorySelect'].forEach(id => {
+                    document.getElementById(id).addEventListener('change',
+                        _.debounce(updateAllCharts, 300)
+                    );
+                });
+            }
+            async function updateAllCharts() {
+                try {
+                    const params = getFilterParams();
+                    await updateChart('revenue', params);
+                    await updateChart('topProducts', params);
+                    await updateChart('category', params);
+                    await updateChart('supplier', params);
+                    await updateChart('discount', params);
+                } catch (error) {
+                    showToast('Có lỗi xảy ra khi tải dữ liệu', 'danger');
+                }
+            }
+            function getFilterParams() {
+                return {
+                    year: document.getElementById('yearSelect').value,
+                    month: document.getElementById('monthSelect').value,
+                    category: document.getElementById('categorySelect').value
+                };
+            }
+            async function updateChart(chartType, params) {
+                const container = document.querySelector(`#${chartType}Chart`).closest('.card-body');
+                try {
+                    showLoading(container);
+                    const data = await fetchData(chartType, params);
+                    renderChart(chartType, data);
+                    updateOverviewStats(data);
+                } catch (error) {
+                    showToast(`Lỗi khi tải biểu đồ: ${chartType}`, 'danger');
+                } finally {
+                    hideLoading(container);
+                }
+            }
+            async function fetchData(chartType, { year, month, category }) {
+                const endpoints = {
+                    revenue: `/Admin/GetDetailedRevenueData?year=${year}&month=${month}&category=${category}`,
+                    topProducts: `/Admin/GetDetailedProductData?year=${year}&month=${month}&category=${category}`,
+                    category: `/Admin/GetCategoryStatistics?year=${year}&month=${month}&category=${category}`,
+                    supplier: `/Admin/GetSupplierStatistics?year=${year}&month=${month}&category=${category}`,
+                    discount: `/Admin/GetDiscountStatistics?year=${year}&month=${month}`
+                };
+                const response = await fetch(endpoints[chartType]);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            }
+            function renderChart(chartType, data) {
+                const config = getChartConfig(chartType, data);
+                const canvasId = `${chartType}Chart`;
+                if (charts[chartType]) charts[chartType].destroy();
+                charts[chartType] = new Chart(
+                    document.getElementById(canvasId),
+                    config
+                );
+            }
+            function getChartConfig(chartType, data) {
+                return {
+                    type: chartConfigs[chartType].type,
+                    data: getChartData(chartType, data),
+                    options: chartConfigs[chartType].options
+                };
+            }
+            function getChartData(chartType, data) {
+                const datasets = {
+                    revenue: [{
+                        data: data.map(item => item.totalRevenue),
+                        borderColor: '#4e73df',
+                        backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                        tension: 0.4
+                    }],
+                    topProducts: [{
+                        data: data.map(item => item.quantitySold),
+                        backgroundColor: '#1cc88a'
+                    }],
+                    category: [{
+                        data: data.map(item => item.totalRevenue),
+                        backgroundColor: [
+                            '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b',
+                            '#858796', '#5a5c69', '#2e59d9', '#17a673', '#2c9faf'
+                        ]
+                    }],
+                    supplier: [{
+                        data: data.map(item => item.totalRevenue),
+                        backgroundColor: '#f6c23e'
+                    }],
+                    discount: [{
+                        data: data.map(item => item.totalDiscount),
+                        backgroundColor: '#e74a3b'
+                    }]
+                };
+                return {
+                    labels: data.map(getLabel(chartType)),
+                    datasets: datasets[chartType]
+                };
+            }
+            function getLabel(chartType) {
+                const labelMap = {
+                    revenue: item => `Ngày ${item.date}`,
+                    topProducts: item => item.productName,
+                    category: item => item.categoryName,
+                    supplier: item => item.supplierName,
+                    discount: item => item.discountCode
+                };
+                return labelMap[chartType];
+            }
+            function updateOverviewStats(data) {
+                if (data && data.length > 0) {
+                    const totalRevenue = data.reduce((sum, item) => sum + (item.totalRevenue || 0), 0);
+                    const totalDiscounts = data.reduce((sum, item) => sum + (item.totalDiscount || 0), 0);
+                    document.getElementById('totalRevenue').textContent = formatCurrency(totalRevenue);
+                    document.getElementById('totalDiscounts').textContent = formatCurrency(totalDiscounts);
+                }
+            }
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(value);
+            }
+            function showLoading(container) {
+                container.querySelector('.loading-overlay').style.display = 'flex';
+            }
+            function hideLoading(container) {
+                container.querySelector('.loading-overlay').style.display = 'none';
+            }
+            function showToast(message, type = 'primary') {
+                const toast = document.getElementById('toastMsg');
+                toast.className = `toast align-items-center text-bg-${type} border-0`;
+                toast.querySelector('.toast-body').textContent = message;
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.show();
+            }
+            function updateProductChart(data) {
+                if (data && data.length > 0) {
+                    const labels = data.map(item => item.productName);
+                    const quantities = data.map(item => item.availableQuantity); // Sử dụng số lượng tồn kho thực tế
+                    const revenues = data.map(item => item.totalRevenue);
+
+                    productChart.data.labels = labels;
+                    productChart.data.datasets[0].data = quantities;
+                    productChart.data.datasets[1].data = revenues;
+                    productChart.update();
+                }
+            }
+        })();
+    </script>
+</body>
+</html>
+

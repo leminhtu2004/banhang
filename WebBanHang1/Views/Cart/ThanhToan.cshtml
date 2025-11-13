@@ -1,0 +1,280 @@
+﻿@model WebBanHang1.Models.HoaDon
+
+<div class="container my-4">
+    <h1 class="mb-4">Chi Tiết Thanh Toán</h1>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-controller="Cart" asp-action="ThanhToan" method="post">
+                @Html.AntiForgeryToken()
+
+                <!-- Thông tin giao hàng -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin giao hàng</h5>
+                        <div class="mb-3">
+                            <label asp-for="DiaChi" class="form-label">Địa chỉ giao hàng</label>
+                            <input asp-for="DiaChi" class="form-control" required />
+                            <span asp-validation-for="DiaChi" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phương thức thanh toán -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Phương thức thanh toán</h5>
+                        <div class="mb-3">
+                            <label asp-for="CachThanhToan" class="form-label">Chọn phương thức thanh toán</label>
+                            <select asp-for="CachThanhToan" class="form-select" required>
+                                <option value="">-- Chọn phương thức thanh toán --</option>
+                                <option value="Tiền mặt">Thanh toán khi nhận hàng (COD)</option>
+                                <option value="Chuyển khoản">Thanh toán qua VNPay</option>
+                            </select>
+                            <span asp-validation-for="CachThanhToan" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mã giảm giá thông minh -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Mã giảm giá</h5>
+                        
+                        <!-- Danh sách mã khuyến mãi có thể sử dụng -->
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-outline-info btn-sm" onclick="loadAvailablePromotions()">
+                                <i class="fas fa-gift"></i> Xem mã khuyến mãi có thể sử dụng
+                            </button>
+                            <div id="availablePromotions" class="mt-2" style="display: none;">
+                                <div class="alert alert-info">
+                                    <h6>Mã khuyến mãi có thể sử dụng:</h6>
+                                    <div id="promotionsList"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nhập mã giảm giá -->
+                        <div class="mb-3">
+                            <label asp-for="MaGiamGia" class="form-label">Nhập mã giảm giá</label>
+                            <div class="input-group">
+                                <input asp-for="MaGiamGia" id="promotionCodeInput" class="form-control" placeholder="Nhập mã giảm giá..." />
+                                <button type="button" class="btn btn-primary" onclick="validatePromotionCode()">
+                                    <i class="fas fa-check"></i> Kiểm tra
+                                </button>
+                            </div>
+                            <span asp-validation-for="MaGiamGia" class="text-danger"></span>
+                            
+                            <!-- Thông báo kết quả kiểm tra -->
+                            <div id="promotionResult" class="mt-2" style="display: none;"></div>
+                            
+                            <!-- Thông tin mã giảm giá đã áp dụng -->
+                            <div id="appliedPromotion" class="mt-2" style="display: none;">
+                                <div class="alert alert-success">
+                                    <h6>Mã giảm giá đã áp dụng:</h6>
+                                    <div id="promotionDetails"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút xác nhận -->
+                <button type="submit" class="btn btn-primary">Xác nhận đặt hàng</button>
+                <a href="@Url.Action("Index", "Cart")" class="btn btn-secondary">Quay lại giỏ hàng</a>
+            </form>
+        </div>
+
+        <!-- Thông tin đơn hàng -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Thông tin đơn hàng</h5>
+                    <div class="order-summary">
+                        <p><strong>Tổng tiền hàng:</strong> @String.Format("{0:N0}", ViewBag.SubTotal ?? 0) đ</p>
+                        <p><strong>Phí vận chuyển:</strong> @String.Format("{0:N0}", ViewBag.ShippingFee ?? 0) đ</p>
+
+                        @if (ViewBag.DiscountAmount != null && ViewBag.DiscountAmount > 0)
+                        {
+                            <p><strong>Giảm giá:</strong> -@String.Format("{0:N0}", ViewBag.DiscountAmount) đ</p>
+                        }
+
+                        @if (!string.IsNullOrEmpty(ViewBag.PromotionMessage))
+                        {
+                            <div class="alert alert-success">
+                                @ViewBag.PromotionMessage
+                            </div>
+                        }
+
+                        <hr>
+                        <p class="h5"><strong>Tổng tiền thanh toán:</strong> @String.Format("{0:N0}", ViewBag.TotalAmount ?? 0) đ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    
+    <script>
+        // Kiểm tra mã giảm giá
+        function validatePromotionCode() {
+            const promotionCode = document.getElementById('promotionCodeInput').value.trim();
+            
+            if (!promotionCode) {
+                showPromotionResult('Vui lòng nhập mã giảm giá', 'danger');
+                return;
+            }
+
+            // Hiển thị loading
+            showPromotionResult('Đang kiểm tra mã giảm giá...', 'info');
+
+            $.ajax({
+                url: '@Url.Action("ValidatePromotionCode", "Cart")',
+                type: 'POST',
+                data: { promotionCode: promotionCode },
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function(response) {
+                    if (response.success) {
+                        showPromotionResult(response.message, 'success');
+                        showAppliedPromotion(response.promotion, response.discount);
+                    } else {
+                        showPromotionResult(response.message, 'danger');
+                        hideAppliedPromotion();
+                    }
+                },
+                error: function() {
+                    showPromotionResult('Có lỗi xảy ra khi kiểm tra mã giảm giá', 'danger');
+                }
+            });
+        }
+
+        // Hiển thị kết quả kiểm tra
+        function showPromotionResult(message, type) {
+            const resultDiv = document.getElementById('promotionResult');
+            resultDiv.className = `alert alert-${type} mt-2`;
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = 'block';
+        }
+
+        // Hiển thị thông tin mã giảm giá đã áp dụng
+        function showAppliedPromotion(promotion, discount) {
+            const appliedDiv = document.getElementById('appliedPromotion');
+            const detailsDiv = document.getElementById('promotionDetails');
+            
+            detailsDiv.innerHTML = `
+                <p><strong>Mã:</strong> ${promotion.maGiamGia}</p>
+                <p><strong>Loại:</strong> ${promotion.loaiGiamGia}</p>
+                <p><strong>Giá trị:</strong> ${promotion.giaTriGiam} ${promotion.loaiGiamGia.toLowerCase() === 'phantram' ? '%' : 'VNĐ'}</p>
+                <p><strong>Giảm được:</strong> ${formatCurrency(discount)} VNĐ</p>
+                <p><strong>Hết hạn:</strong> ${promotion.ngayKetThuc}</p>
+                ${promotion.moTa ? `<p><strong>Mô tả:</strong> ${promotion.moTa}</p>` : ''}
+            `;
+            
+            appliedDiv.style.display = 'block';
+        }
+
+        // Ẩn thông tin mã giảm giá đã áp dụng
+        function hideAppliedPromotion() {
+            document.getElementById('appliedPromotion').style.display = 'none';
+        }
+
+        // Tải danh sách mã khuyến mãi có thể sử dụng
+        function loadAvailablePromotions() {
+            const promotionsDiv = document.getElementById('availablePromotions');
+            const listDiv = document.getElementById('promotionsList');
+            
+            if (promotionsDiv.style.display === 'none') {
+                // Hiển thị loading
+                listDiv.innerHTML = '<p>Đang tải...</p>';
+                promotionsDiv.style.display = 'block';
+
+                $.ajax({
+                    url: '@Url.Action("GetAvailablePromotions", "Cart")',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success && response.promotions.length > 0) {
+                            let html = '';
+                            response.promotions.forEach(function(promo) {
+                                html += `
+                                    <div class="border rounded p-2 mb-2">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <strong>${promo.maGiamGia}</strong> - ${promo.loaiGiamGia}
+                                                <br><small>${promo.giaTriGiam} ${promo.loaiGiamGia.toLowerCase() === 'phantram' ? '%' : 'VNĐ'}</small>
+                                                ${promo.moTa ? `<br><small class="text-muted">${promo.moTa}</small>` : ''}
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" 
+                                                    onclick="applyPromotionCode('${promo.maGiamGia}')">
+                                                Áp dụng
+                                            </button>
+                                        </div>
+                                        <small class="text-muted">Hết hạn: ${promo.ngayKetThuc}</small>
+                                        ${promo.giaTriToiThieu ? `<br><small class="text-muted">Tối thiểu: ${formatCurrency(promo.giaTriToiThieu)} VNĐ</small>` : ''}
+                                    </div>
+                                `;
+                            });
+                            listDiv.innerHTML = html;
+                        } else {
+                            listDiv.innerHTML = '<p>Không có mã khuyến mãi nào có thể sử dụng</p>';
+                        }
+                    },
+                    error: function() {
+                        listDiv.innerHTML = '<p class="text-danger">Có lỗi xảy ra khi tải danh sách mã khuyến mãi</p>';
+                    }
+                });
+            } else {
+                promotionsDiv.style.display = 'none';
+            }
+        }
+
+        // Áp dụng mã giảm giá từ danh sách
+        function applyPromotionCode(code) {
+            document.getElementById('promotionCodeInput').value = code;
+            validatePromotionCode();
+        }
+
+        // Format tiền tệ
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount);
+        }
+
+        // Tự động kiểm tra khi nhập mã
+        let typingTimer;
+        const doneTypingInterval = 1000; // 1 giây
+
+        document.getElementById('promotionCodeInput').addEventListener('input', function() {
+            clearTimeout(typingTimer);
+            if (this.value.trim()) {
+                typingTimer = setTimeout(validatePromotionCode, doneTypingInterval);
+            } else {
+                hideAppliedPromotion();
+                document.getElementById('promotionResult').style.display = 'none';
+            }
+        });
+    </script>
+}
+
